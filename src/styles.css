@@ -1,1 +1,104 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '../node_modules/bootstrap/dist/css/bootstrap.css';
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+}
+
+/* top header */
+.top-header{
+  background: #673ab7;
+  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  height: 50px;
+  color: #fff;
+  z-index: 9;
+}
+.top-header>span{
+  font-size: 18px;
+  text-transform: uppercase;
+  margin-left: 10px;
+  font-weight: 500;
+  display: inline-block;
+  vertical-align: middle
+}
+.toggle-menu{
+  padding: 0px!important;
+    min-width: 50px!important;
+    line-height: 50px!important;
+}
+/* Login Page */
+
+.main-logo{display: block; text-align: center;margin-top: 50px;padding: 50px 0;}
+.main-logo img{max-width: 200px;}
+.loginBx{display: block; max-width: 400px; margin: 0 auto;}
+.loginBx mat-form-field{display: block; margin-top: 15px;}
+.loginBx .suffix-icon{font-size: 18px; color: #a2a2a2;}
+
+.errTxt {color: red; font-size: 14px;}
+.loginBx .errTxt { margin-top: -20px;}
+
+.formBx{display: block; max-width: 400px; margin: 0 auto; padding: 15px; margin-top:60px;}
+.formBx mat-form-field{display: block;}
+.formBx .errTxt { margin-top: -20px;}
+
+.pageHeading{   
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: #636363;
+  margin-bottom: 15px;
+}
+.button-row{
+  padding-top: 15px;
+    border-top: 1px solid #ccc;
+    text-align: right;
+}
+
+/* Home Page */
+.home-menu-box{
+  display: block;
+  padding: 15px;
+  text-align: center;
+  background: #f2f2f2;
+  border-radius: 3px;
+  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2);
+  margin-bottom: 30px;
+}
+.home-menu-box i{
+  display: block;
+  color: #fd6732;
+  font-size: 40px;
+}
+.home-menu-box span{
+  display: block;
+  color: #333;
+  font-size: 16px;
+  line-height: 1.4;
+  margin-top: 5px;
+}
+
+/* Appointment List */
+.appointment-box{display: block; max-width: 400px; margin: 20px auto;}
+.app-list{display: block; padding: 0px; border:1px solid #ccc;}
+.app-list li{display: block; padding: 0px; list-style: none; border-bottom: 1px solid #ccc;}
+.app-list li:last-child{border-bottom: none;}
+.app-list li .li-span{display: inline-block; padding: 5px;}
+.app-list li .li-span:nth-child(2){min-width: 80px;}
+.editAppntBtn{height: auto!important; line-height: 26px!important; width:30px!important;}
+.editAppntBtn i{font-size: 20px;}
+.appntMenu .mat-menu-content{padding: 0px!important;}
+.appntMenu .mat-menu-content button{line-height: 36px;height: 36px;border-bottom: 1px solid #eee; font-size: 14px;}
+
+.appntStatusBtns .mat-button-toggle:nth-child(2){border-left: 1px solid #eee; border-right: 1px solid #eee;}
+.appntStatusBtns .mat-button-toggle label{margin-bottom: 0px;}
+.appntStatusBtns .mat-button-toggle label i{font-size: 18px; font-weight: 600;}
+.appntStatusBtns .mat-button-toggle .mat-button-toggle-label-content{padding: 0 7px; line-height: 28px;}
+
+
+

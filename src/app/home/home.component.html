@@ -1,0 +1,56 @@
+<mat-sidenav-container
+    class="example-container" (backdropClick)="close('backdrop')">
+
+  <mat-sidenav #sidenav (keydown.escape)="close('escape')" disableClose>
+    <app-app-sidenav></app-app-sidenav>
+  </mat-sidenav>
+
+  <!-- Main Content Start -->
+  <mat-sidenav-content>
+    <div class="top-header">
+        <button mat-button class="toggle-menu" (click)="sidenav.open()"><i class="material-icons">menu</i></button>
+        <span>Home</span>
+    </div>
+    
+    <div class="container-fluid mb-3">  
+        <div class="main-logo">
+            <img src="assets/images/harbor-logo.png"/>
+        </div>
+
+        <!-- Home Content Menus -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <a routerLink="/register-patient" class="home-menu-box">
+                        <i class="material-icons">how_to_reg</i>
+                        <span>Register<br/>Patient</span>
+                    </a>      
+                </div>
+                <div class="col">
+                    <a routerLink="/book-appointment" class="home-menu-box">
+                        <i class="material-icons">book</i>
+                        <span>Book<br/>Appointments</span>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <a routerLink="/appointments" class="home-menu-box">
+                        <i class="material-icons">format_list_numbered</i>
+                        <span>Manage<br/>Appointments</span>
+                    </a>      
+                </div>
+                <div class="col">
+                    <a routerLink="/accept-bill" class="home-menu-box">
+                        <i class="material-icons">payment</i>
+                        <span>Accept<br/>Bills</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Home Content Menus End -->
+
+    </div>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,42 @@
+
+
+<div class="container-fluid">
+    <div class="loginBx">
+
+        <div class="main-logo">
+            <img src="assets/images/harbor-logo.png"/>
+        </div>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+          <div class="row">
+              <div class="col-12">
+                  <mat-form-field>
+                    <input matInput placeholder="Username" type="text" formControlName="username">
+                    <i matSuffix class="material-icons suffix-icon">person</i>
+                  </mat-form-field>
+                  <div class="errTxt" *ngIf="loginForm.controls['username'].touched && !loginForm.controls['username'].valid">  
+                      <span *ngIf="loginForm.controls['username'].hasError('required') ">  
+                          Username is required  
+                      </span> 
+                  </div> 
+              </div>
+              <div class="col-12">
+                <mat-form-field>
+                  <input matInput placeholder="Password" type="password" formControlName="password">
+                  <i matSuffix class="material-icons suffix-icon">lock</i>
+                </mat-form-field>
+                <div class="errTxt" *ngIf="loginForm.controls['password'].touched && !loginForm.controls['password'].valid">  
+                    <span *ngIf="loginForm.controls['password'].hasError('required') ">  
+                        Password is required  
+                    </span> 
+                </div>
+              </div>
+              <div class="col-12">
+                  <div class="button-row mt-3">
+                      <button type="submit" [disabled]="!loginForm.valid" mat-button class="mat-raised-button mat-primary">Login</button>
+                  </div>
+              </div>
+          </div>
+        </form>
+    </div>
+</div>

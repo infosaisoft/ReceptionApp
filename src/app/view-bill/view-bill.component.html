@@ -1,0 +1,67 @@
+<mat-sidenav-container
+    class="example-container" (backdropClick)="close('backdrop')">
+
+  <mat-sidenav #sidenav (keydown.escape)="close('escape')" disableClose>
+        <app-app-sidenav></app-app-sidenav>
+  </mat-sidenav>
+
+  <!-- Main Content Start -->
+  <mat-sidenav-content>
+    <div class="top-header">
+        <button mat-button class="toggle-menu" (click)="sidenav.open()"><i class="material-icons">menu</i></button>
+        <span>Billing</span>
+    </div>
+    
+    <div class="container-fluid">    
+        <div class="formBx">
+    
+            <div class="pageHeading">
+                View Bills
+            </div>
+
+            <mat-form-field>
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search using Bill Id, Name, Contact">
+              </mat-form-field>
+              
+              <table class="table table-responsive table-bordered table-bill">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Bill Id</th>
+                    <th>Name</th>
+                    <th>Contact</th>
+                    <th>Net Amount</th>
+                    <th>Amount Paid</th>
+                    <th>Bal Amount</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let result of results">
+                      <td>{{ result.bill_id }}</td>
+                      <td>{{ result.patient_name }}</td>
+                      <td>{{ result.patient_contact }}</td>
+                      <td>{{ result.net_amount }}</td>
+                      <td>{{ result.amount_paid }}</td>
+                      <td>{{ result.balance_amt }}</td>
+                      <td>{{ result.updated_date | date: 'dd/MM/yyyy' }}</td>
+                      <td>
+                          <a class="btn btn-info btn-sm btn-a" routerLink="bill-details?bid={{ result.bill_id }}">
+                              <i class="material-icons" style="font-size: 16px;">view_list</i>
+                          </a>
+                          <a class="btn btn-primary btn-sm btn-a" routerLink="edit-bill?bid={{ result.bill_id }}">
+                              <i class="material-icons" style="font-size: 16px;">edit</i>
+                          </a>
+                      </td>
+                  </tr>
+                </tbody>
+              </table>
+    
+        </div>
+    </div>
+
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
+<!-- Main Content End -->
+

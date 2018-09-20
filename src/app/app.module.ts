@@ -1,18 +1,73 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { DatePipe } from '@angular/common'
 
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatFormFieldModule, MatInputModule } from '@angular/material';
+import {MatButtonModule} from '@angular/material/button';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatSelectModule} from '@angular/material/select';
+import {MatTableModule} from '@angular/material/table';
 
 import { AppComponent } from './app.component';
+
+import { AppRoutingModule } from './/app-routing.module';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterPatientComponent } from './register-patient/register-patient.component';
+import { BookAppointmentComponent } from './book-appointment/book-appointment.component';
+import { AppSidenavComponent } from './app-sidenav/app-sidenav.component';
+import { ManageAppointmentsComponent } from './manage-appointments/manage-appointments.component';
+import { AcceptBillComponent } from './accept-bill/accept-bill.component';
+import { ViewBillComponent } from './view-bill/view-bill.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent,
+    LoginComponent,
+    RegisterPatientComponent,
+    BookAppointmentComponent,
+    AppSidenavComponent,
+    ManageAppointmentsComponent,
+    AcceptBillComponent,
+    ViewBillComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+
+    AppRoutingModule,
+    MatSlideToggleModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatRadioModule,
+    MatSnackBarModule,
+    MatSidenavModule,
+    MatMenuModule,
+    MatButtonToggleModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatAutocompleteModule,
+    MatSelectModule,
+    MatTableModule,
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

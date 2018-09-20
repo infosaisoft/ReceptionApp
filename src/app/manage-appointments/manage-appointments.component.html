@@ -1,0 +1,75 @@
+<mat-sidenav-container
+    class="example-container" (backdropClick)="close('backdrop')">
+
+<mat-sidenav #sidenav (keydown.escape)="close('escape')" disableClose>
+    <app-app-sidenav></app-app-sidenav>
+  </mat-sidenav>
+
+  <!-- Main Content Start -->
+  <mat-sidenav-content>
+    <div class="top-header">
+        <button mat-button class="toggle-menu" (click)="sidenav.open()"><i class="material-icons">menu</i></button>
+        <span>Appointments</span>
+    </div>
+
+    <div class="container-fluid">   
+    
+        <div class="pageHeading" style="margin-top:60px;">
+            Manage Appointments
+        </div>
+  
+        <!-- Appointment lists -->
+        <div class="appointment-box">
+
+            <div class="mb-2">
+                    <span>
+                        <mat-form-field class="example-full-width">
+                            <input matInput [matDatepicker]="picker" [(ngModel)]="newdate" (change)="onChange($event)" placeholder="Choose a date">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker touchUi #picker></mat-datepicker>
+                        </mat-form-field>
+                    </span>
+                    <!-- <div class="button-row mt-3">
+                        <button type="submit" [disabled]="!getAppointment.valid" mat-button class="mat-raised-button mat-primary">View Appointments</button>
+                    </div> -->
+            </div>
+
+            <ul class="app-list">
+                <li *ngFor="let result of results; let i = index">
+                    <span class="li-span">{{ i + 1 }}</span>
+                    <span class="li-span">{{ result.patient_name }}</span>
+                    <span class="li-span">{{ result.time }}</span>
+                    <span class="li-span">
+                        <mat-button-toggle-group class="appntStatusBtns" #group="matButtonToggleGroup">
+                            <mat-button-toggle value="0">
+                                <i  class="material-icons">access_time</i>
+                            </mat-button-toggle>
+                            <mat-button-toggle value="1">
+                                <i  class="material-icons">check</i>
+                            </mat-button-toggle>
+                            <mat-button-toggle value="2">
+                                <i  class="material-icons">info</i>
+                            </mat-button-toggle>
+                        </mat-button-toggle-group>
+                    </span>
+                    <span class="li-span">
+                        <mat-menu class="appntMenu" #editAppnt="matMenu" [overlapTrigger]="false">
+                            <button mat-menu-item>Edit</button>
+                            <button mat-menu-item>Delete</button>
+                        </mat-menu>
+                        
+                        <button class="editAppntBtn" mat-icon-button [matMenuTriggerFor]="editAppnt">
+                            <i class="material-icons">more_vert</i>
+                        </button>
+                    </span>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
+<!-- Main Content End -->
+
