@@ -30,6 +30,7 @@ import { AppSidenavComponent } from './app-sidenav/app-sidenav.component';
 import { ManageAppointmentsComponent } from './manage-appointments/manage-appointments.component';
 import { AcceptBillComponent } from './accept-bill/accept-bill.component';
 import { ViewBillComponent } from './view-bill/view-bill.component';
+import { AppointmentService } from './services/appointment.service';
 
 
 @NgModule({
@@ -42,7 +43,9 @@ import { ViewBillComponent } from './view-bill/view-bill.component';
     AppSidenavComponent,
     ManageAppointmentsComponent,
     AcceptBillComponent,
-    ViewBillComponent
+    ViewBillComponent,
+    // AppGlobals,
+    // AppConfig
   ],
   imports: [
     BrowserModule,
@@ -66,8 +69,10 @@ import { ViewBillComponent } from './view-bill/view-bill.component';
     MatAutocompleteModule,
     MatSelectModule,
     MatTableModule,
+    // AppGlobals,
+    // AppConfig
   ],
-  providers: [DatePipe],
+  providers: [DatePipe,AppointmentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

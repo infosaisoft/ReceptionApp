@@ -8,7 +8,7 @@ import { AppointmentGetData } from "./appointment-get.model";
 @Injectable()
 export class AppointmentService{
 
-    private serviceUrl = "http://localhost:1010/ReceptionApp-WebService/appointment";
+    private serviceUrl = "http://localhost:8080/ReceptionApp-WebService/appointment";
 
 
     constructor(private _http: HttpClient){ }
