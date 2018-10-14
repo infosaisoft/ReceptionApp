@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common'
 
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {MatFormFieldModule, MatInputModule } from '@angular/material';
+import {MatFormFieldModule, MatInputModule, MatDialogModule } from '@angular/material';
 import {MatButtonModule} from '@angular/material/button';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
@@ -31,6 +31,8 @@ import { ManageAppointmentsComponent } from './manage-appointments/manage-appoin
 import { AcceptBillComponent } from './accept-bill/accept-bill.component';
 import { ViewBillComponent } from './view-bill/view-bill.component';
 import { AppointmentService } from './services/appointment.service';
+import { AppUtility } from './app.utility';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 
 @NgModule({
@@ -44,6 +46,7 @@ import { AppointmentService } from './services/appointment.service';
     ManageAppointmentsComponent,
     AcceptBillComponent,
     ViewBillComponent,
+    ConfirmDialogComponent
     // AppGlobals,
     // AppConfig
   ],
@@ -69,10 +72,15 @@ import { AppointmentService } from './services/appointment.service';
     MatAutocompleteModule,
     MatSelectModule,
     MatTableModule,
+    MatDialogModule
     // AppGlobals,
     // AppConfig
   ],
-  providers: [DatePipe,AppointmentService],
-  bootstrap: [AppComponent]
+  providers: [DatePipe,AppointmentService, AppUtility],
+  bootstrap: [AppComponent],
+  entryComponents: [    
+    ConfirmDialogComponent
+
+  ],
 })
 export class AppModule { }

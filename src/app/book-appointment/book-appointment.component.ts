@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { MatSnackBar, MatSidenav } from '@angular/material';
 import { AppointmentService } from '../services/appointment.service';
+import { AppUtility } from '../app.utility';
 
 @Component({
   selector: 'app-book-appointment',
@@ -23,7 +24,7 @@ export class BookAppointmentComponent implements OnInit {
   hid: string = "hid1";
 
 
-  constructor(private formBuilder: FormBuilder, public snackbar: MatSnackBar, private appointmentService: AppointmentService, public snackBar: MatSnackBar) {
+  constructor(private formBuilder: FormBuilder, public snackbar: MatSnackBar, private utility: AppUtility, private appointmentService: AppointmentService, public snackBar: MatSnackBar) {
     this.appointmentForm = this.formBuilder.group({
       'doctor': ['', Validators.required],
       'department': ['', Validators.required],
@@ -38,7 +39,8 @@ export class BookAppointmentComponent implements OnInit {
 
 
 
-    this.appointmentService.getDoctorList().subscribe(data => {
+    this.appointmentService.getDoctorList().subscribe(responsedata => {
+      let data:any = responsedata;
       if (data.response.length == 0) {
         let snackBarRef = this.snackBar.open("Doctor list is empty.", "", { duration: 3000 });
       }
@@ -92,7 +94,8 @@ export class BookAppointmentComponent implements OnInit {
   }
 
   getPatientName(contact: any) {
-    this.appointmentService.getPatientByMobile(contact).subscribe(data => {
+    this.appointmentService.getPatientByMobile(contact).subscribe(responsedata => {
+      let data:any = responsedata;
       if (data.response != null) {
         this.appointmentForm.controls["patient_name"].setValue(data.response.name);
       }
@@ -102,7 +105,8 @@ export class BookAppointmentComponent implements OnInit {
 
   getDepartments(doctor: any) {
 
-    this.appointmentService.getDepartmentsByDoctor(doctor.id).subscribe(data => {
+    this.appointmentService.getDepartmentsByDoctor(doctor.id).subscribe(responsedata => {
+      let data:any = responsedata;
       if (data.response != null) {
         this.departmentList = data.response;
       }
@@ -118,7 +122,7 @@ export class BookAppointmentComponent implements OnInit {
     console.log("getSlots", this.appointmentForm.controls["date"].value);
 
     let date: Date = this.appointmentForm.controls["date"].value;
-    let date1 = this.formatDate(date);
+    let date1 = this.utility.formatDate(date);
 
     let criteria = {
       "department_id": this.appointmentForm.controls["department"].value.department.id,
@@ -126,7 +130,8 @@ export class BookAppointmentComponent implements OnInit {
       "date": date1
     }
 
-    this.appointmentService.getSlots(criteria).subscribe(data => {
+    this.appointmentService.getSlots(criteria).subscribe(responsedata => {
+      let data:any = responsedata;
       if (data.response != null) {
         this.slots = data.response;
       }
@@ -134,16 +139,6 @@ export class BookAppointmentComponent implements OnInit {
     });
   }
 
-  formatDate(date) {
-    var d = date,
-      month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear();
 
-    if (month.length < 2) month = '0' + month;
-    if (day.length < 2) day = '0' + day;
-
-    return [year, month, day].join('-');
-  }
 
 }

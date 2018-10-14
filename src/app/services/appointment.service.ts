@@ -33,4 +33,13 @@ export class AppointmentService {
     return this.http.post<ApiResponse>(this.apiBaseUrl + "/api/appointment/create", req, this.httpOptions)
   }
 
+  updateAppointment(req: any) {
+    return this.http.post<ApiResponse>(this.apiBaseUrl + "/api/appointment/update", req, this.httpOptions)
+  }
+
+  searchAppointment(req: any) {
+    return this.http.post<ApiResponse>(this.apiBaseUrl + "/api/appointment/search", req, this.httpOptions)
+  }
+
+
 }

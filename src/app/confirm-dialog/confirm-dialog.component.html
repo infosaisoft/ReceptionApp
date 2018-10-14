@@ -1,0 +1,9 @@
+<h2 mat-dialog-title class="text-truncate">{{title}}</h2>
+<mat-dialog-content [innerHTML]="confirmMsg"></mat-dialog-content>
+<mat-dialog-actions>
+  <div class="col-sm-12 text-right pr-0">
+    <button mat-raised-button color="primary" [mat-dialog-close]="true">Yes</button>
+    <button mat-raised-button mat-dialog-close>No</button>
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  </div>
+</mat-dialog-actions>
