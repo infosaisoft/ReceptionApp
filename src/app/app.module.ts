@@ -33,6 +33,7 @@ import { ViewBillComponent } from './view-bill/view-bill.component';
 import { AppointmentService } from './services/appointment.service';
 import { AppUtility } from './app.utility';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { BillTariffsComponent } from './bill-tariffs/bill-tariffs.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     ManageAppointmentsComponent,
     AcceptBillComponent,
     ViewBillComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    BillTariffsComponent
     // AppGlobals,
     // AppConfig
   ],
@@ -79,7 +81,8 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
   providers: [DatePipe,AppointmentService, AppUtility],
   bootstrap: [AppComponent],
   entryComponents: [    
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    BillTariffsComponent
 
   ],
 })

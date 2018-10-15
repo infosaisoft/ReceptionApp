@@ -1,0 +1,73 @@
+<form [formGroup]="tariffsForm" (ngSubmit)="onSubmit()" novalidate>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-6">
+        <!-- <mat-form-field class="example-full-width">
+          <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" formControlName="myControl1" [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+              {{option}}  
+              </mat-option>
+          </mat-autocomplete>
+      </mat-form-field> -->
+        <mat-form-field>
+          <mat-select placeholder="Choose tariff" formControlName="tariff_name" (change)="setTariff()">
+            <mat-option *ngFor="let tariff of tariffRates" [value]="tariff">
+              {{tariff.tariff.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="errTxt" *ngIf="tariffsForm.controls['tariff_name'].touched && !tariffsForm.controls['tariff_name'].valid">
+          <span *ngIf="tariffsForm.controls['tariff_name'].hasError('required') ">
+            Please Enter Tariff Name
+          </span>
+        </div>
+      </div>
+      <div class="col-6">
+        <mat-form-field>
+          <input matInput placeholder="Service Name" type="text" #servName formControlName="service_name">
+        </mat-form-field>
+        <div class="errTxt" *ngIf="tariffsForm.controls['service_name'].touched && !tariffsForm.controls['service_name'].valid">
+          <span *ngIf="tariffsForm.controls['service_name'].hasError('required') ">
+            Please Enter Service Name
+          </span>
+        </div>
+      </div>
+
+      <!-- <div class="col-12">
+      <div class="button-row mt-3">
+          <button type="button" (click)="onClickAdd(tarName.value, servName.value); tarName.value=''; servName.value='' " mat-button class="mat-raised-button mat-primary">Add</button>
+      </div>
+  </div> -->
+
+      <div class="col-6">
+        <mat-form-field>
+          <input matInput placeholder="Service Cateory" type="text" formControlName="category">
+        </mat-form-field>
+        <div class="errTxt" *ngIf="tariffsForm.controls['category'].touched && !tariffsForm.controls['category'].valid">
+          <span *ngIf="tariffsForm.controls['category'].hasError('required') ">
+            Please Enter Category
+          </span>
+        </div>
+      </div>
+      <div class="col-6">
+        <mat-form-field>
+          <input matInput placeholder="Rate" type="number" formControlName="rate">
+          <!-- [ngModel]="ratemodel" (ngModelChange)="valuechange($event)" -->
+        </mat-form-field>
+        <div class="errTxt" *ngIf="tariffsForm.controls['rate'].touched && !tariffsForm.controls['rate'].valid">
+          <span *ngIf="tariffsForm.controls['rate'].hasError('required') ">
+            Please Enter Rate/Amount
+          </span>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="button-row mt-3">
+          <button type="submit" [disabled]="!tariffsForm.valid" mat-button class="mat-raised-button mat-primary">Add</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</form>

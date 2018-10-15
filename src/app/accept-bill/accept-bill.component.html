@@ -1,169 +1,128 @@
-<mat-sidenav-container
-    class="example-container" (backdropClick)="close('backdrop')">
+<mat-sidenav-container class="example-container" (backdropClick)="close('backdrop')">
 
-<mat-sidenav #sidenav (keydown.escape)="close('escape')" disableClose>
-    <app-app-sidenav></app-app-sidenav>
-  </mat-sidenav>
+    <mat-sidenav #sidenav (keydown.escape)="close('escape')" disableClose>
+        <app-app-sidenav></app-app-sidenav>
+    </mat-sidenav>
 
-  <!-- Main Content Start -->
-  <mat-sidenav-content>
-    <div class="top-header">
-        <button mat-button class="toggle-menu" (click)="sidenav.open()"><i class="material-icons">menu</i></button>
-        <span>Billing</span>
-    </div>
-
-    <div class="container-fluid">    
-        <div class="formBx" style="padding: 15px 0;">
-    
-            <div class="pageHeading">
-                Generate Bill
-            </div>
-    
-            <form [formGroup]="billingForm" (ngSubmit)="onSubmit()" novalidate>
-                <div class="row">
-
-                  <div class="col-12">
-                      <mat-form-field>
-                          <input matInput placeholder="Phone No." type="number" formControlName="patient_contact">
-                      </mat-form-field>
-                      <div class="errTxt" *ngIf="billingForm.controls['patient_contact'].touched && !billingForm.controls['patient_contact'].valid">  
-                          <span *ngIf="billingForm.controls['patient_contact'].hasError('required') ">  
-                              Phone No. is required  
-                          </span> 
-                          <span *ngIf="billingForm.controls['patient_contact'].hasError('pattern') ">  
-                              Invalid Phone No. 
-                          </span>  
-                      </div> 
-                  </div>
-
-                    <div class="col-12">
-                        <mat-form-field>
-                            <input matInput placeholder="Paitient Name" type="text" formControlName="patient_name">
-                        </mat-form-field>
-                        <div class="errTxt" *ngIf="billingForm.controls['patient_name'].touched && !billingForm.controls['patient_name'].valid">  
-                            <span *ngIf="billingForm.controls['patient_name'].hasError('required') ">  
-                                Name is required  
-                            </span> 
-                        </div> 
-                    </div>
-
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-6">
-                                <!-- <mat-form-field class="example-full-width">
-                                    <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" formControlName="myControl1" [matAutocomplete]="auto">
-                                    <mat-autocomplete #auto="matAutocomplete">
-                                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                                        {{option}}  
-                                        </mat-option>
-                                    </mat-autocomplete>
-                                </mat-form-field> -->
-                                <mat-form-field>
-                                    <input matInput placeholder="Tariff Name" type="text" #tarName formControlName="tariff_name">
-                                </mat-form-field>
-                                <div class="errTxt" *ngIf="billingForm.controls['tariff_name'].touched && !billingForm.controls['tariff_name'].valid">  
-                                    <span *ngIf="billingForm.controls['tariff_name'].hasError('required') ">  
-                                        Please Enter Tariff Name 
-                                    </span> 
-                                </div> 
-                            </div>
-                            <div class="col-6">
-                                <mat-form-field>
-                                    <input matInput placeholder="Service Name" type="text" #servName formControlName="service_name">
-                                </mat-form-field>
-                                <div class="errTxt" *ngIf="billingForm.controls['service_name'].touched && !billingForm.controls['service_name'].valid">  
-                                    <span *ngIf="billingForm.controls['service_name'].hasError('required') ">  
-                                        Please Enter Service Name 
-                                    </span> 
-                                </div> 
-                            </div>
-
-                            <!-- <div class="col-12">
-                                <div class="button-row mt-3">
-                                    <button type="button" (click)="onClickAdd(tarName.value, servName.value); tarName.value=''; servName.value='' " mat-button class="mat-raised-button mat-primary">Add</button>
-                                </div>
-                            </div> -->
-
-                            <div class="col-6">
-                                <mat-form-field>
-                                    <input matInput placeholder="Service Cateory" type="text"formControlName="category">
-                                </mat-form-field>
-                                <div class="errTxt" *ngIf="billingForm.controls['category'].touched && !billingForm.controls['category'].valid">  
-                                    <span *ngIf="billingForm.controls['category'].hasError('required') ">  
-                                       Please Enter Category  
-                                    </span> 
-                                </div> 
-                            </div>
-                            <div class="col-6">
-                                <mat-form-field>
-                                    <input matInput placeholder="Rate" type="number" formControlName="rate" >
-                                     <!-- [ngModel]="ratemodel" (ngModelChange)="valuechange($event)" -->
-                                </mat-form-field>
-                                <div class="errTxt" *ngIf="billingForm.controls['rate'].touched && !billingForm.controls['rate'].valid">  
-                                    <span *ngIf="billingForm.controls['rate'].hasError('required') ">  
-                                        Please Enter Rate/Amount 
-                                    </span> 
-                                </div> 
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <mat-form-field>
-                            <input matInput placeholder="Additional Charges" type="number" formControlName="add_charge" >
-                        </mat-form-field>
-                    </div>
-
-                    <div class="col-12">
-                        <mat-form-field>
-                            <input matInput placeholder="Discount" type="number" formControlName="discount">
-                        </mat-form-field>
-                    </div>
-
-                    <div class="col-12">
-                        <mat-form-field>
-                            <input matInput placeholder="Net Amount" type="number" formControlName="net_amount">
-                        </mat-form-field>
-                    </div>
-
-                    <div class="col-12">
-                        <mat-form-field>
-                            <input matInput placeholder="Amount Paid" type="number" formControlName="amount_paid">
-                        </mat-form-field>
-                    </div>
-
-                    <div class="col-12">
-                        <mat-form-field>
-                            <input matInput placeholder="Balance Amount" type="number" formControlName="balance_amt">
-                        </mat-form-field>
-                    </div>
-
-                    <div class="col-12">
-                        <mat-form-field>
-                            <mat-select placeholder="Payment Mode" formControlName="payment_mode">
-                                <mat-option *ngFor="let mode of modes" [value]="mode">
-                                  {{mode}}
-                                </mat-option>
-                              </mat-select>
-                        </mat-form-field>
-                    </div>
-
-                    <div class="col-12">
-                        <div class="button-row mt-3">
-                            <a routerLink="/view-bill" class="mat-raised-button ">View  Bills</a>
-                            <button type="submit" [disabled]="!billingForm.valid" mat-button class="mat-raised-button mat-primary">Generate Bill</button>
-                        </div>
-                    </div>
-    
-                </div>
-            </form>
+    <!-- Main Content Start -->
+    <mat-sidenav-content>
+        <div class="top-header">
+            <button mat-button class="toggle-menu" (click)="sidenav.open()"><i class="material-icons">menu</i></button>
+            <span>Billing</span>
         </div>
-        
-    </div>
+
+        <div class="container-fluid">
+            <div class="formBx" style="padding: 15px 0;">
+
+                <div class="pageHeading">
+                    Generate Bill
+                </div>
+
+                <form [formGroup]="billingForm" (ngSubmit)="onSubmit()" novalidate>
+                    <div class="row">
+
+                        <div class="col-12">
+                            <mat-form-field>
+                                <input matInput placeholder="Phone No." type="number" formControlName="patient_contact">
+                            </mat-form-field>
+                            <div class="errTxt" *ngIf="billingForm.controls['patient_contact'].touched && !billingForm.controls['patient_contact'].valid">
+                                <span *ngIf="billingForm.controls['patient_contact'].hasError('required') ">
+                                    Phone No. is required
+                                </span>
+                                <span *ngIf="billingForm.controls['patient_contact'].hasError('pattern') ">
+                                    Invalid Phone No.
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <mat-form-field>
+                                <input matInput placeholder="Paitient Name" type="text" formControlName="patient_name">
+                            </mat-form-field>
+                            <div class="errTxt" *ngIf="billingForm.controls['patient_name'].touched && !billingForm.controls['patient_name'].valid">
+                                <span *ngIf="billingForm.controls['patient_name'].hasError('required') ">
+                                    Name is required
+                                </span>
+                            </div>
+                        </div>
+
+                        <span>0 Tariffs added.</span>
+                        <button mat-button class="mat-raised-button mat-primary" (click)="addTariffs()">Add Tariffs</button>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tariff</th>
+                                    <th>Service Name</th>
+                                    <th>Service Category</th>
+                                    <th>Rate</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let tariff of appliedTariffs; let i = index">
+                                    <td>Ta</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+
+                        <div class="col-12">
+                            <mat-form-field>
+                                <input matInput placeholder="Additional Charges" type="number" formControlName="add_charge">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12">
+                            <mat-form-field>
+                                <input matInput placeholder="Discount" type="number" formControlName="discount">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12">
+                            <mat-form-field>
+                                <input matInput placeholder="Net Amount" type="number" formControlName="net_amount">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12">
+                            <mat-form-field>
+                                <input matInput placeholder="Amount Paid" type="number" formControlName="amount_paid">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12">
+                            <mat-form-field>
+                                <input matInput placeholder="Balance Amount" type="number" formControlName="balance_amt">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12">
+                            <mat-form-field>
+                                <mat-select placeholder="Payment Mode" formControlName="payment_mode">
+                                    <mat-option *ngFor="let mode of modes" [value]="mode">
+                                        {{mode}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="button-row mt-3">
+                                <a routerLink="/view-bill" class="mat-raised-button ">View Bills</a>
+                                <button type="submit" [disabled]="!billingForm.valid" mat-button class="mat-raised-button mat-primary">Generate
+                                    Bill</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
 
 
-  </mat-sidenav-content>
+    </mat-sidenav-content>
 </mat-sidenav-container>
 <!-- Main Content End -->
-

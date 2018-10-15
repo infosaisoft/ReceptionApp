@@ -41,5 +41,13 @@ export class AppointmentService {
     return this.http.post<ApiResponse>(this.apiBaseUrl + "/api/appointment/search", req, this.httpOptions)
   }
 
+  getTariffRatesByAppointment(appointmentId: number) {
+    return this.http.get<ApiResponse>(this.apiBaseUrl + "/api/tariffs/appointment/" + appointmentId, this.httpOptions)
+  }
+
+  getAppointmentById(appointmentId: number) {
+    return this.http.get<ApiResponse>(this.apiBaseUrl + "/api/appointment/" + appointmentId , this.httpOptions)
+  }
+
 
 }
