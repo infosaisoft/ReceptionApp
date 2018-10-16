@@ -45,6 +45,9 @@ export class AcceptBillComponent implements OnInit {
           let data: any = responsedata;
           this.appointment = data.response;
 
+          this.billingForm.controls["patient_name"].setValue(this.appointment.patient.name);
+          this.billingForm.controls["patient_contact"].setValue(this.appointment.patient.contact);
+
           //fetching tariff rates.
           this.appointmentService.getTariffRatesByAppointment(this.appointment.id).subscribe(responsedata => {
             let data: any = responsedata;
