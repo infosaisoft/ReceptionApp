@@ -8,6 +8,7 @@ import { BillService } from './bill.service';
 import { BillTariffsComponent } from '../bill-tariffs/bill-tariffs.component';
 import { AppointmentService } from '../services/appointment.service';
 import { ActivatedRoute } from '@angular/router';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-accept-bill',
@@ -23,6 +24,7 @@ export class AcceptBillComponent implements OnInit {
   hid: string = "hid1";
 
   appointment: any;
+  tariffRates: any = [];
 
   myControl = new FormControl();
   options: string[] = ['One', 'Two', 'Three'];
@@ -43,18 +45,23 @@ export class AcceptBillComponent implements OnInit {
           let data: any = responsedata;
           this.appointment = data.response;
 
+          //fetching tariff rates.
+          this.appointmentService.getTariffRatesByAppointment(this.appointment.id).subscribe(responsedata => {
+            let data: any = responsedata;
+            this.prepareTariffData(data.response);
+            //this.tariffRates = data.response;
+          });
+
         });
+
+
+
       }
     });
 
     this.billingForm = this.formBuilder.group({
       'patient_name': ['', Validators.required],
       'patient_contact': ['', Validators.compose([Validators.required, Validators.pattern(this.mobnumPattern)])],
-      //'myControl1': ['', Validators.required],
-      // 'sub_bill': this.formBuilder.group({
-      //     'tariff_name': ['', Validators.required],
-      //     'service_name': ['', Validators.required],
-      //  }),
       'tariff_name': ['', Validators.required],
       'service_name': ['', Validators.required],
       'category': ['', Validators.required],
@@ -71,12 +78,50 @@ export class AcceptBillComponent implements OnInit {
 
   }
 
+  prepareTariffData(tariffRates: any) {
+
+    tariffRates.forEach(element => {
+      let obj = { tariff_name: element.tariff.name, service_name: element.service_name, service_category: element.service_category, rate: element.rate };
+      if (element.is_mandatory) {
+        this.applyTariff(obj);
+      } else {
+        this.tariffRates.push(obj);
+      }
+    });
+    this.calculateNetAmount();
+  }
+
+  applyTariff(obj: any) {
+    this.appliedTariffs.push(obj);
+    this.calculateNetAmount();
+  }
+
+  applyMandatoryTariffs(tariffRates: any) {
+    tariffRates.forEach(element => {
+      if (element.is_mandatory) {
+        let obj = { tariff_name: element.tariff.name, service_name: element.service_name, service_category: element.service_category, rate: element.rate };
+        this.appliedTariffs.push(obj);
+
+
+      }
+    });
+  }
+
   ngOnInit() {
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith(''),
         map(value => this._filter(value))
       );
+  }
+
+  calculateNetAmount() {
+    let netAmount = 0;
+    this.appliedTariffs.forEach(element => {
+      netAmount += element.rate;
+    })
+
+    this.billingForm.controls["net_amount"].setValue(netAmount);
   }
 
   private _filter(value: string): string[] {
@@ -123,22 +168,15 @@ export class AcceptBillComponent implements OnInit {
   addTariffs() {
     let dialogRef = this.dialog.open(BillTariffsComponent, {
       width: '800px',
-      data: { appointment: this.appointment }
+      data: { tariffs: this.tariffRates }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log("result", result);
-      // if (result) {
-      //   let req = { id: appointment.id, status: 2 }
-      //   //this.helpers.loading("submit-video-activity");
-      //   this.appointmentService.updateAppointment(req).subscribe(data => {
-      //     //this.helpers.unloading("submit-video-activity");
-      //     this.onSubmit();
-      //     let snackBarRef = this.snackbar.open("Appointment has been closed successfully! ", "", { duration: 3000 });
 
-      //   })
-      // }
-      console.log('The dialog was closed', result);
+      if (result)
+      this.applyTariff(result.tariff);
+
 
     });
 

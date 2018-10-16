@@ -13,7 +13,7 @@
         <mat-form-field>
           <mat-select placeholder="Choose tariff" formControlName="tariff_name" (change)="setTariff()">
             <mat-option *ngFor="let tariff of tariffRates" [value]="tariff">
-              {{tariff.tariff.name}}
+              {{tariff.tariff_name}}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -42,10 +42,10 @@
 
       <div class="col-6">
         <mat-form-field>
-          <input matInput placeholder="Service Cateory" type="text" formControlName="category">
+          <input matInput placeholder="Service Cateory" type="text" formControlName="service_category">
         </mat-form-field>
-        <div class="errTxt" *ngIf="tariffsForm.controls['category'].touched && !tariffsForm.controls['category'].valid">
-          <span *ngIf="tariffsForm.controls['category'].hasError('required') ">
+        <div class="errTxt" *ngIf="tariffsForm.controls['service_category'].touched && !tariffsForm.controls['service_category'].valid">
+          <span *ngIf="tariffsForm.controls['service_category'].hasError('required') ">
             Please Enter Category
           </span>
         </div>
@@ -63,7 +63,7 @@
       </div>
       <div class="col-12">
         <div class="button-row mt-3">
-          <button type="submit" [disabled]="!tariffsForm.valid" mat-button class="mat-raised-button mat-primary">Add</button>
+          <button type="submit" [disabled]="!tariffsForm.valid" mat-button class="mat-raised-button mat-primary" >Add</button>
         </div>
       </div>
 

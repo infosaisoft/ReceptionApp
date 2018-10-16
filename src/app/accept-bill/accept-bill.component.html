@@ -46,9 +46,8 @@
                             </div>
                         </div>
 
-                        <span>0 Tariffs added.</span>
-                        <button mat-button class="mat-raised-button mat-primary" (click)="addTariffs()">Add Tariffs</button>
-                        <table>
+                        <button mat-button type="button" class="mat-raised-button mat-primary" (click)="addTariffs()">Add Tariffs</button>
+                        <table class="table">
                             <thead>
                                 <tr>
                                     <th>Tariff</th>
@@ -59,14 +58,14 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let tariff of appliedTariffs; let i = index">
-                                    <td>Ta</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{tariff.tariff_name}}</td>
+                                    <td>{{tariff.service_name}}</td>
+                                    <td>{{tariff.service_category}}</td>
+                                    <td>{{tariff.rate}}</td>
                                 </tr>
                             </tbody>
                         </table>
-                        
+
 
                         <div class="col-12">
                             <mat-form-field>
