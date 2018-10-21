@@ -8,6 +8,7 @@ import { BookAppointmentComponent } from './book-appointment/book-appointment.co
 import { ManageAppointmentsComponent } from './manage-appointments/manage-appointments.component';
 import { AcceptBillComponent } from './accept-bill/accept-bill.component';
 import { ViewBillComponent } from './view-bill/view-bill.component';
+import { LogoutComponent } from './logout/logout.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'book-appointment', component: BookAppointmentComponent },  
   { path: 'appointments', component: ManageAppointmentsComponent },  
   { path: 'accept-bill', component: AcceptBillComponent },  
-  { path: 'view-bill', component: ViewBillComponent }
+  { path: 'view-bill', component: ViewBillComponent },
+  { path: 'logout', component: LogoutComponent },
 ]
 
 @NgModule({

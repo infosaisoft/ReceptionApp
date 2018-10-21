@@ -36,6 +36,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import { BillTariffsComponent } from './bill-tariffs/bill-tariffs.component';
 import { BillService } from './services/bill.service';
 import { AppService } from './services/app.service';
+import { LogoutComponent } from './logout/logout.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { AppService } from './services/app.service';
     AcceptBillComponent,
     ViewBillComponent,
     ConfirmDialogComponent,
-    BillTariffsComponent
+    BillTariffsComponent,
+    LogoutComponent
     // AppGlobals,
     // AppConfig
   ],
