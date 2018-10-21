@@ -3,8 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiResponse } from '../models/ApiResponse';
 
 @Injectable()
-export class PatientService {
-
+export class BillService {
   private httpOptions: any = null;
   private apiBaseUrl: string = "http://localhost:8090";
   private auth: any = null;
@@ -16,14 +15,15 @@ export class PatientService {
       this.auth = auth;
     }
     let headers: any = { 'Authorization': 'Token ' + this.auth.authtoken };
-
     this.httpOptions = { headers: new HttpHeaders(headers) };
   }
 
+  createBill(req: any) {
+    return this.http.post<ApiResponse>(this.apiBaseUrl + "/api/bill/create", req, this.httpOptions)
+  }
 
-
-  createPatient(req: any) {
-    return this.http.post<ApiResponse>(this.apiBaseUrl + "/api/patient/create", req, this.httpOptions)
+  getBills(criteria: any) {
+    return this.http.post<ApiResponse>(this.apiBaseUrl + "/api/bill/search", criteria, this.httpOptions)
   }
 
 }

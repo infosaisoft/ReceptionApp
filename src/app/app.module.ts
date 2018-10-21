@@ -1,23 +1,23 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common'
 
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {MatFormFieldModule, MatInputModule, MatDialogModule } from '@angular/material';
-import {MatButtonModule} from '@angular/material/button';
-import {MatRadioModule} from '@angular/material/radio';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatSelectModule} from '@angular/material/select';
-import {MatTableModule} from '@angular/material/table';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatFormFieldModule, MatInputModule, MatDialogModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
 
 import { AppComponent } from './app.component';
 
@@ -34,6 +34,8 @@ import { AppointmentService } from './services/appointment.service';
 import { AppUtility } from './app.utility';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { BillTariffsComponent } from './bill-tariffs/bill-tariffs.component';
+import { BillService } from './services/bill.service';
+import { AppService } from './services/app.service';
 
 
 @NgModule({
@@ -78,9 +80,9 @@ import { BillTariffsComponent } from './bill-tariffs/bill-tariffs.component';
     // AppGlobals,
     // AppConfig
   ],
-  providers: [DatePipe,AppointmentService, AppUtility],
+  providers: [DatePipe, AppointmentService, AppUtility, BillService, AppService],
   bootstrap: [AppComponent],
-  entryComponents: [    
+  entryComponents: [
     ConfirmDialogComponent,
     BillTariffsComponent
 

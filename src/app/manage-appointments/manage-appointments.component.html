@@ -59,7 +59,7 @@
                         </span>
                         <span class="li-span">
                             <mat-menu class="appntMenu" #editAppnt="matMenu" [overlapTrigger]="false">
-                                <button mat-menu-item>Make Payment</button>
+                                <button mat-menu-item (click)="goToPaymentPage(result)">Make Payment</button>
 
                             </mat-menu>
 

@@ -28,6 +28,7 @@ export class BillTariffsComponent implements OnInit {
       'service_name': ['', Validators.required],
       'service_category': ['', Validators.required],
       'rate': ['', Validators.required],
+      "tariff_rate_id": [""]
     });
 
   }
@@ -40,11 +41,12 @@ export class BillTariffsComponent implements OnInit {
     this.tariffsForm.controls["service_name"].setValue(tariff.service_name);
     this.tariffsForm.controls["service_category"].setValue(tariff.service_category);
     this.tariffsForm.controls["rate"].setValue(tariff.rate);
+    this.tariffsForm.controls["tariff_rate_id"].setValue(tariff.tariff_rate_id);
   }
 
   onSubmit() {
     let selectedTariff = this.tariffsForm.value;
-    selectedTariff.tariff_name = selectedTariff.tariff_name.tariff_name
+    selectedTariff.tariff_name = selectedTariff.tariff_name.tariff_name;
     this.dialogRef.close({ "tariff": selectedTariff });
   }
 

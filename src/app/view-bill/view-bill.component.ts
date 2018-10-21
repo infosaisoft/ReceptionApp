@@ -3,6 +3,7 @@ import { MatTableDataSource, MatSidenav, MatSnackBar } from '@angular/material';
 import { DataSource } from '@angular/cdk/table';
 import { GetBillData } from './get-bill.model';
 import { GetBillService } from './get-bill.service';
+import { BillService } from '../services/bill.service';
 
 
 
@@ -16,26 +17,28 @@ import { GetBillService } from './get-bill.service';
 export class ViewBillComponent implements OnInit {
 
   @ViewChild('sidenav') sidenav: MatSidenav;
- 
-  hid:string = "hid1";
-  results: GetBillData[];
+
+  hid: string = "hid1";
+  results: any = [];
   dataSource = new MatTableDataSource(this.results);
 
-  constructor( private viewBillService: GetBillService , public snackbar: MatSnackBar) { }
+  constructor(private billService: BillService, public snackbar: MatSnackBar) { }
 
   ngOnInit() {
-      this.getBills(this.hid);
+    this.getBills({});
   }
 
   applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.getBills({ id: filterValue.trim() });
+    //this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  getBills(hid){
-    this.viewBillService.getBills(this.hid)
-      .subscribe( data=>{
-          this.results=data;
-      }, error=>{
+  getBills(criteria: any) {
+    this.billService.getBills(criteria)
+      .subscribe(data => {
+        let res: any = data;
+        this.results = res.response;
+      }, error => {
         this.snackbar.open('Unable to fetch Bills', '', {
           duration: 4000
         });

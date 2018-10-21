@@ -6,9 +6,16 @@ import { ApiResponse } from '../models/ApiResponse';
 export class AppointmentService {
   private httpOptions: any = null;
   private apiBaseUrl: string = "http://localhost:8090";
+  private auth: any = null;
 
   constructor(private http: HttpClient) {
-    let headers: any = { 'Authorization': 'Token eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtcmNvb2wiLCJ1c2VySWQiOiI5Iiwicm9sZSI6ImFkbWluIn0.YvfUxAwoHSibYxDHZ5ZLyLok5LQ1TvapRqfTQpHZObwK5By3hi_U3Hrqoh371-LOb1MbXgq0hDJwJnABlE93mw' };
+
+    let authdata = localStorage.getItem("auth");
+    if (null != authdata) {
+      let auth = JSON.parse(authdata);
+      this.auth = auth;
+    }
+    let headers: any = { 'Authorization': 'Token ' + this.auth.authtoken };
     this.httpOptions = { headers: new HttpHeaders(headers) };
   }
 
@@ -46,7 +53,7 @@ export class AppointmentService {
   }
 
   getAppointmentById(appointmentId: number) {
-    return this.http.get<ApiResponse>(this.apiBaseUrl + "/api/appointment/" + appointmentId , this.httpOptions)
+    return this.http.get<ApiResponse>(this.apiBaseUrl + "/api/appointment/" + appointmentId, this.httpOptions)
   }
 
 

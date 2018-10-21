@@ -69,31 +69,31 @@
 
                         <div class="col-12">
                             <mat-form-field>
-                                <input matInput placeholder="Additional Charges" type="number" formControlName="add_charge">
+                                <input matInput placeholder="Additional Charges" type="number" formControlName="add_charge" (blur)="onAddChargeChange()">
                             </mat-form-field>
                         </div>
 
                         <div class="col-12">
                             <mat-form-field>
-                                <input matInput placeholder="Discount" type="number" formControlName="discount">
+                                <input matInput placeholder="Discount" type="number" formControlName="discount" (blur)="onDiscountChange()">
                             </mat-form-field>
                         </div>
 
                         <div class="col-12">
                             <mat-form-field>
-                                <input matInput placeholder="Net Amount" type="number" formControlName="net_amount">
+                                <input matInput placeholder="Net Amount" type="number" formControlName="net_amount" [readonly]="true">
                             </mat-form-field>
                         </div>
 
                         <div class="col-12">
                             <mat-form-field>
-                                <input matInput placeholder="Amount Paid" type="number" formControlName="amount_paid">
+                                <input matInput placeholder="Amount Paid" type="number" formControlName="amount_paid" (blur)="onAmtPaidChange()">
                             </mat-form-field>
                         </div>
 
                         <div class="col-12">
                             <mat-form-field>
-                                <input matInput placeholder="Balance Amount" type="number" formControlName="balance_amt">
+                                <input matInput placeholder="Balance Amount" type="number" formControlName="balance_amt" [readonly]="true">
                             </mat-form-field>
                         </div>
 

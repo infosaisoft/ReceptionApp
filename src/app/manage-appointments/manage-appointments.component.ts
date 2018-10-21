@@ -6,6 +6,7 @@ import { DatePipe } from '@angular/common';
 import { AppointmentService } from '../services/appointment.service';
 import { AppUtility } from '../app.utility';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-manage-appointments',
@@ -28,7 +29,7 @@ export class ManageAppointmentsComponent implements OnInit {
   latest_date1: string;
   doctorList: any;
 
-  constructor(private formBuilder: FormBuilder, public dialog: MatDialog, private appointmentService: AppointmentService, private utility: AppUtility, public snackbar: MatSnackBar, public datepipe: DatePipe) {
+  constructor(private formBuilder: FormBuilder, private router: Router, public dialog: MatDialog, private appointmentService: AppointmentService, private utility: AppUtility, public snackbar: MatSnackBar, public datepipe: DatePipe) {
     this.searchAppointmentForm = this.formBuilder.group({
       'date': ["", Validators.required],
       'doctor': ["", Validators.required],
@@ -103,5 +104,10 @@ export class ManageAppointmentsComponent implements OnInit {
 
   close(reason: string) {
     this.sidenav.close();
+  }
+
+  goToPaymentPage(appointment: any) {
+    this.router.navigate(['accept-bill'], { queryParams: { appointment_id: appointment.id } });
+    console.log(appointment);
   }
 }
