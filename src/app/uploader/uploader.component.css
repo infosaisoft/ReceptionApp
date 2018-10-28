@@ -1,0 +1,61 @@
+.uploader-heading {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.UploadDialogBox {
+    display: block;
+    padding: 15px;
+}
+
+.UploadDialogBox h3 {
+    font-size: 20px;
+    text-align: center;
+}
+
+.UploadBox {
+    display: block;
+    border: 2px dashed #cccccc;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    color: #cccccc;
+}
+
+.FileIcons {
+    display: inline-block;
+    width: 70px;
+    vertical-align: top;
+}
+
+.FileTransfer {
+    display: inline-block;
+    width: 100%;
+    max-width: 350px;
+    vertical-align: top;
+}
+
+.file_icon {
+    display: block;
+    padding: 10px;
+    background: #d2e7ff;
+    color: #8dc1fd;
+    font-size: 40px;
+    margin-right: 10px;
+}
+
+.FileTransfer p {
+    margin-top: 0px;
+    margin-bottom: 5px;
+}
+
+.UploadBtns {
+    text-align: right;
+}
+
+.UploadBtns mat-divider {
+    margin: 15px 0;
+}
+
+.UploadFileBox{margin-bottom: 10px;}

@@ -1,0 +1,23 @@
+
+
+<div class="UploadDialogBox">
+  <h3>Upload Files</h3>
+  <dropzone class="dropzone-container" [config]="config" [disabled]="disabled" [message]="'Click or drag files here to upload'"
+  (error)="onUploadError($event)" (success)="onUploadSuccess($event)" (addedFile)="addedFile($event)" (uploadProgress)="uploadProgress($event)"></dropzone>
+  <h4>{{files.length}} Files</h4>
+  <div class="UploadFileBox" *ngFor="let file of files">
+      <div class="FileIcons">
+          <i class="material-icons file_icon">insert_drive_file</i>
+      </div>
+      <div class="FileTransfer">
+          <p>{{file.name}}</p>
+          <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+      </div>
+  </div>
+  <div class="UploadBtns">
+      <mat-divider></mat-divider>        
+      <button mat-button type="submit" 
+              class="mat-raised-button mat-primary" (click)="OnSubmit()">Save</button>
+      <button mat-button class="divider">Cancel</button>
+  </div>
+</div>

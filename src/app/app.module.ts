@@ -37,6 +37,7 @@ import { BillTariffsComponent } from './bill-tariffs/bill-tariffs.component';
 import { BillService } from './services/bill.service';
 import { AppService } from './services/app.service';
 import { LogoutComponent } from './logout/logout.component';
+import { AuthGuard } from './guards/AuthGuard';
 
 
 @NgModule({
@@ -82,7 +83,7 @@ import { LogoutComponent } from './logout/logout.component';
     // AppGlobals,
     // AppConfig
   ],
-  providers: [DatePipe, AppointmentService, AppUtility, BillService, AppService],
+  providers: [DatePipe, AppointmentService, AppUtility, BillService, AppService,AuthGuard],
   bootstrap: [AppComponent],
   entryComponents: [
     ConfirmDialogComponent,

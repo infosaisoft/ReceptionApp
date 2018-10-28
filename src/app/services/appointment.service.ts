@@ -11,11 +11,13 @@ export class AppointmentService {
   constructor(private http: HttpClient) {
 
     let authdata = localStorage.getItem("auth");
+    let authtoken  = "";
     if (null != authdata) {
       let auth = JSON.parse(authdata);
       this.auth = auth;
+      authtoken = this.auth.authtoken;
     }
-    let headers: any = { 'Authorization': 'Token ' + this.auth.authtoken };
+    let headers: any = { 'Authorization': 'Token ' + authtoken };
     this.httpOptions = { headers: new HttpHeaders(headers) };
   }
 

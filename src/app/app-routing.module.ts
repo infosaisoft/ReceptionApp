@@ -9,16 +9,18 @@ import { ManageAppointmentsComponent } from './manage-appointments/manage-appoin
 import { AcceptBillComponent } from './accept-bill/accept-bill.component';
 import { ViewBillComponent } from './view-bill/view-bill.component';
 import { LogoutComponent } from './logout/logout.component';
+import { AuthGuard } from './guards/AuthGuard';
+import { UploaderComponent } from './uploader/uploader.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'home', component: HomeComponent },
+  { path: '', component: HomeComponent ,canActivate: [AuthGuard]},
+  { path: 'home', component: HomeComponent ,canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent },
-  { path: 'register-patient', component: RegisterPatientComponent },
-  { path: 'book-appointment', component: BookAppointmentComponent },  
-  { path: 'appointments', component: ManageAppointmentsComponent },  
-  { path: 'accept-bill', component: AcceptBillComponent },  
-  { path: 'view-bill', component: ViewBillComponent },
+  { path: 'register-patient', component: RegisterPatientComponent ,canActivate: [AuthGuard] },
+  { path: 'book-appointment', component: BookAppointmentComponent ,canActivate: [AuthGuard]},  
+  { path: 'appointments', component: ManageAppointmentsComponent ,canActivate: [AuthGuard]},  
+  { path: 'accept-bill', component: AcceptBillComponent ,canActivate: [AuthGuard]},  
+  { path: 'view-bill', component: ViewBillComponent ,canActivate: [AuthGuard]},
   { path: 'logout', component: LogoutComponent },
 ]
 
