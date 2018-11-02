@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiResponse } from '../models/ApiResponse';
+import { AppConfig } from '../app.config';
 
 @Injectable()
 export class BillService {
   private httpOptions: any = null;
-  private apiBaseUrl: string = "http://localhost:8090";
   private auth: any = null;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private appConfig:AppConfig) {
     let authdata = localStorage.getItem("auth");
     if (null != authdata) {
       let auth = JSON.parse(authdata);
@@ -19,11 +19,11 @@ export class BillService {
   }
 
   createBill(req: any) {
-    return this.http.post<ApiResponse>(this.apiBaseUrl + "/api/bill/create", req, this.httpOptions)
+    return this.http.post<ApiResponse>(this.appConfig.API_BASE_URL + "/api/bill/create", req, this.httpOptions)
   }
 
   getBills(criteria: any) {
-    return this.http.post<ApiResponse>(this.apiBaseUrl + "/api/bill/search", criteria, this.httpOptions)
+    return this.http.post<ApiResponse>(this.appConfig.API_BASE_URL + "/api/bill/search", criteria, this.httpOptions)
   }
 
 }

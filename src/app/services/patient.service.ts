@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiResponse } from '../models/ApiResponse';
+import { AppConfig } from '../app.config';
 
 @Injectable()
 export class PatientService {
 
   private httpOptions: any = null;
-  private apiBaseUrl: string = "http://localhost:8090";
   private auth: any = null;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private appConfig:AppConfig) {
     let authdata = localStorage.getItem("auth");
     if (null != authdata) {
       let auth = JSON.parse(authdata);
@@ -23,7 +23,7 @@ export class PatientService {
 
 
   createPatient(req: any) {
-    return this.http.post<ApiResponse>(this.apiBaseUrl + "/api/patient/create", req, this.httpOptions)
+    return this.http.post<ApiResponse>(this.appConfig.API_BASE_URL + "/api/patient/create", req, this.httpOptions)
   }
 
 }

@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { ApiResponse } from '../models/ApiResponse';
+import { AppConfig } from '../app.config';
 
 @Injectable()
 export class AppointmentService {
   private httpOptions: any = null;
-  private apiBaseUrl: string = "http://localhost:8090";
   private auth: any = null;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private appConfig:AppConfig) {
 
     let authdata = localStorage.getItem("auth");
     let authtoken  = "";
@@ -22,40 +22,40 @@ export class AppointmentService {
   }
 
   getDoctorList() {
-    return this.http.get<ApiResponse>(this.apiBaseUrl + "/api/doctor/list", this.httpOptions)
+    return this.http.get<ApiResponse>(this.appConfig.API_BASE_URL + "/api/doctor/list", this.httpOptions)
   }
 
   getPatientByMobile(mobile: string) {
-    return this.http.get<ApiResponse>(this.apiBaseUrl + "/api/patient/mobile/" + mobile, this.httpOptions)
+    return this.http.get<ApiResponse>(this.appConfig.API_BASE_URL + "/api/patient/mobile/" + mobile, this.httpOptions)
   }
 
 
   getDepartmentsByDoctor(doctor: number) {
-    return this.http.get<ApiResponse>(this.apiBaseUrl + "/api/doctor/" + doctor + "/departments", this.httpOptions)
+    return this.http.get<ApiResponse>(this.appConfig.API_BASE_URL + "/api/doctor/" + doctor + "/departments", this.httpOptions)
   }
 
   getSlots(criteria: any) {
-    return this.http.post<ApiResponse>(this.apiBaseUrl + "/api/doctor/slots", criteria, this.httpOptions)
+    return this.http.post<ApiResponse>(this.appConfig.API_BASE_URL + "/api/doctor/slots", criteria, this.httpOptions)
   }
 
   createAppointment(req: any) {
-    return this.http.post<ApiResponse>(this.apiBaseUrl + "/api/appointment/create", req, this.httpOptions)
+    return this.http.post<ApiResponse>(this.appConfig.API_BASE_URL + "/api/appointment/create", req, this.httpOptions)
   }
 
   updateAppointment(req: any) {
-    return this.http.post<ApiResponse>(this.apiBaseUrl + "/api/appointment/update", req, this.httpOptions)
+    return this.http.post<ApiResponse>(this.appConfig.API_BASE_URL + "/api/appointment/update", req, this.httpOptions)
   }
 
   searchAppointment(req: any) {
-    return this.http.post<ApiResponse>(this.apiBaseUrl + "/api/appointment/search", req, this.httpOptions)
+    return this.http.post<ApiResponse>(this.appConfig.API_BASE_URL + "/api/appointment/search", req, this.httpOptions)
   }
 
   getTariffRatesByAppointment(appointmentId: number) {
-    return this.http.get<ApiResponse>(this.apiBaseUrl + "/api/tariffs/appointment/" + appointmentId, this.httpOptions)
+    return this.http.get<ApiResponse>(this.appConfig.API_BASE_URL + "/api/tariffs/appointment/" + appointmentId, this.httpOptions)
   }
 
   getAppointmentById(appointmentId: number) {
-    return this.http.get<ApiResponse>(this.apiBaseUrl + "/api/appointment/" + appointmentId, this.httpOptions)
+    return this.http.get<ApiResponse>(this.appConfig.API_BASE_URL + "/api/appointment/" + appointmentId, this.httpOptions)
   }
 
 
