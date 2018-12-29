@@ -23,7 +23,7 @@ export class PatientService {
 
 
   createPatient(req: any) {
-    return this.http.post<ApiResponse>(this.appConfig.API_BASE_URL + "/api/patient/create", req, this.httpOptions)
+    return this.http.post<ApiResponse>(this.appConfig.API_BASE_URL + "/api/user/save", req, this.httpOptions)
   }
 
 }

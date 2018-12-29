@@ -15,20 +15,26 @@ export class RegisterPatientComponent implements OnInit {
 
   patientForm: FormGroup;
   mobnumPattern = "^((\\+91-?)|0)?[0-9]{10}$";
+  pincodePattern =  "^((\\?)|0)?[0-9]{6}$";
+  emailPattern =  "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$";
 
   constructor(private formBuilder: FormBuilder, private patientService: PatientService, public snackbar: MatSnackBar) {
     this.patientForm = this.formBuilder.group({
       'name': ['', Validators.required],
-      'contact': ['', Validators.compose([Validators.required, Validators.pattern(this.mobnumPattern)])],
-      'aadhar_no': [''],
+      'username': [''],
+      'password':['', Validators.required],
+      'role':[''],
+      'mobile': ['', Validators.compose([Validators.required, Validators.pattern(this.mobnumPattern)])],
       'address': [''],
+      'user_type':  [''],
       'city': [''],
       'state': [''],
-      'pincode': [''],
+      'pincode': ['', Validators.compose([Validators.required, Validators.pattern(this.pincodePattern)])],
       'gender': [''],
       'age': [''],
-      'email': [''],
-      //'photo': [''],
+      'email': ['', Validators.compose([Validators.required, Validators.pattern(this.emailPattern)])],
+      'photo': [''],
+      'hospital_id': [''],
     });
   }
 
@@ -40,9 +46,17 @@ export class RegisterPatientComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.patientForm.value);
 
-    this.patientService.createPatient(this.patientForm.value)
+    var patientReq = this.patientForm.value;
+    patientReq['role'] = 'patient';
+    patientReq['photo'] = 1;
+    patientReq['username'] = patientReq['name'];
+    patientReq['hospital_id'] = 1;
+    patientReq['user_type'] = 3; // for user type patient  
+
+    console.log(patientReq);
+
+    this.patientService.createPatient(patientReq)
       .subscribe((data: any) => {
 
         this.patientForm.reset();

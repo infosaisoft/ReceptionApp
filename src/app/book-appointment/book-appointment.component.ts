@@ -44,7 +44,7 @@ export class BookAppointmentComponent implements OnInit {
       if (data.response.length == 0) {
         let snackBarRef = this.snackBar.open("Doctor list is empty.", "", { duration: 3000 });
       }
-
+      console.log(data.response);
       this.doctorList = data.response;
 
     });
