@@ -22,7 +22,7 @@ export class AppointmentService {
   }
 
   getDoctorList() {
-    return this.http.get<ApiResponse>(this.appConfig.API_BASE_URL + "/api/user/list/3", this.httpOptions)
+    return this.http.get<ApiResponse>(this.appConfig.API_BASE_URL + "/api/user/list/2", this.httpOptions)
   }
 
   getPatientByMobile(mobile: string) {

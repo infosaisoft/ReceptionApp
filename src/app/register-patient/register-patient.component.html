@@ -104,6 +104,11 @@
                                 <mat-radio-button value="1">Male</mat-radio-button>
                                 <mat-radio-button value="0">Female</mat-radio-button>
                             </mat-radio-group>
+                            <div class="errTxt" *ngIf="patientForm.controls['gender'].touched && !patientForm.controls['gender'].valid">
+                                <span *ngIf="patientForm.controls['gender'].hasError('required') ">
+                                    Gender is required
+                                </span>
+                            </div>
                         </div>
 
                         <div class="col-12">

@@ -8,8 +8,15 @@ export class AppService {
   private httpOptions: any = null;
 
   constructor(private http: HttpClient, private appConfig:AppConfig) {
-    let headers: any = { 'Authorization': 'Token eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtcmNvb2wiLCJ1c2VySWQiOiI5Iiwicm9sZSI6ImFkbWluIn0.YvfUxAwoHSibYxDHZ5ZLyLok5LQ1TvapRqfTQpHZObwK5By3hi_U3Hrqoh371-LOb1MbXgq0hDJwJnABlE93mw' };
-    this.httpOptions = { headers: new HttpHeaders(headers) };
+    let headers: any = { "device-id":1};
+    //this.httpOptions = { headers: new HttpHeaders(headers) };
+
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'device-id': "1" 
+      })
+    };
   }
 
   login(req: any) {

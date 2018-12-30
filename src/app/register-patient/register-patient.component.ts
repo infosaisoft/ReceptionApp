@@ -30,7 +30,7 @@ export class RegisterPatientComponent implements OnInit {
       'city': [''],
       'state': [''],
       'pincode': ['', Validators.compose([Validators.required, Validators.pattern(this.pincodePattern)])],
-      'gender': [''],
+      'gender': ['', Validators.required],
       'age': [''],
       'email': ['', Validators.compose([Validators.required, Validators.pattern(this.emailPattern)])],
       'photo': [''],
