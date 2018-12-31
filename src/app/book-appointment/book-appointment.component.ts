@@ -152,17 +152,17 @@ export class BookAppointmentComponent implements OnInit {
     let date: Date = this.appointmentForm.controls["date"].value;
     let date1 = this.utility.formatDate(date);
 
-    // let criteria = {
-    //   "department_id": this.appointmentForm.controls["department"].value.department.id,
-    //   "doctor_id": this.appointmentForm.controls["doctor"].value.id,
-    //   "from_date": date1
-    // }
-
     let criteria = {
-      "department_id": 9, 
-      "doctor_id": 4,
-      "from_date": "2018-12-28"
+      "department_id": this.appointmentForm.controls["department"].value.department.id,
+      "doctor_id": this.appointmentForm.controls["doctor"].value.id,
+      "from_date": date1
     }
+
+    // let criteria = {
+    //   "department_id": 9, 
+    //   "doctor_id": 4,
+    //   "from_date": "2018-12-28"
+    // }
 
     this.appointmentService.getSlots(criteria).subscribe(responsedata => {
       let data:any = responsedata;
