@@ -3,7 +3,7 @@
 <mat-dialog-content>
   <div class="col-12">
       <mat-radio-group [(ngModel)]="slotSelected">
-          <mat-radio-button [value]="slot"  *ngFor="let slot of slots; let i = index" (click)="onChangeslot(slot)">{{slot.start_time + " - " + slot.end_time}}</mat-radio-button>
+          <mat-radio-button [value]="slot" [disabled]="slot.status == 1"  *ngFor="let slot of slots; let i = index" (click)="onChangeslot(slot)">{{slot.start_time + " - " + slot.end_time}}</mat-radio-button>
       </mat-radio-group>
   </div>
 </mat-dialog-content>
