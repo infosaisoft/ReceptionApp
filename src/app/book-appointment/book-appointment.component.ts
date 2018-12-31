@@ -52,7 +52,11 @@ export class BookAppointmentComponent implements OnInit {
 
     
 
-    this.appointmentService.getDoctorList().subscribe(responsedata => {
+    var docReq : any ={
+      "hospital_id" : 1
+    }
+
+    this.appointmentService.getDoctorList(docReq).subscribe(responsedata => {
       let data:any = responsedata;
       if (data.response.length == 0) {
         let snackBarRef = this.snackBar.open("Doctor list is empty.", "", { duration: 3000 });
@@ -64,7 +68,7 @@ export class BookAppointmentComponent implements OnInit {
 
   openSlotDialog(): void {
     const dialogRef = this.dialog.open(SlotDialogComponent, {
-      width: '250px',
+      width: '280px',
       data: {slots: this.slots}
     });
 
@@ -148,17 +152,17 @@ export class BookAppointmentComponent implements OnInit {
     let date: Date = this.appointmentForm.controls["date"].value;
     let date1 = this.utility.formatDate(date);
 
-    let criteria = {
-      "department_id": this.appointmentForm.controls["department"].value.department.id,
-      "doctor_id": this.appointmentForm.controls["doctor"].value.id,
-      "from_date": date1
-    }
-
     // let criteria = {
-    //   "department_id": 9, 
-    //   "doctor_id": 4,
-    //   "from_date": "2018-12-17"
+    //   "department_id": this.appointmentForm.controls["department"].value.department.id,
+    //   "doctor_id": this.appointmentForm.controls["doctor"].value.id,
+    //   "from_date": date1
     // }
+
+    let criteria = {
+      "department_id": 9, 
+      "doctor_id": 4,
+      "from_date": "2018-12-28"
+    }
 
     this.appointmentService.getSlots(criteria).subscribe(responsedata => {
       let data:any = responsedata;

@@ -1,3 +1,15 @@
 table {
     width: 100%;
   }
+.mat-success {
+    background-color: #5cb85c;
+    color: #fff;
+}
+.mat-grey {
+    background-color: grey;
+    color: #fff;
+}
+.mat-yellow {
+    background-color: yellow;
+    color: #fff;
+}

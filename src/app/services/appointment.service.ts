@@ -21,8 +21,8 @@ export class AppointmentService {
     this.httpOptions = { headers: new HttpHeaders(headers) };
   }
 
-  getDoctorList() {
-    return this.http.get<ApiResponse>(this.appConfig.API_BASE_URL + "/api/user/list/2", this.httpOptions)
+  getDoctorList(criteria : any) {
+    return this.http.post<ApiResponse>(this.appConfig.API_BASE_URL + "/api/doctor/list",criteria, this.httpOptions)
   }
 
   getPatientByMobile(mobile: string) {
