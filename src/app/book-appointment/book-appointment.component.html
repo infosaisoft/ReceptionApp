@@ -18,7 +18,7 @@
                     Book Appointment
                 </div>
 
-                <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()" novalidate>
+                <form [formGroup]="appointmentForm"  novalidate>
                     <div class="row">
 
                         <div class="col-12">
@@ -85,7 +85,7 @@
                         </div>
 
 
-                        <div class="col-12">
+                        <div class="col-10">
                             <mat-form-field>
                                 <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Choose a date"
                                 (dateChange)="getSlots()" >
@@ -99,11 +99,11 @@
                             </div>
                         </div>
 
-                        <div class="col-12">
+                        <!-- <div class="col-12">
                             <mat-form-field>
                                 <mat-select placeholder="Choose Slot" formControlName="slot" required>
                                     <mat-option>--</mat-option>
-                                    <mat-option *ngFor="let slot of slots" [value]="slot" [disabled]="slot.status != 0">
+                                    <mat-option *ngFor="let slot of slots" [value]="slot">
                                         {{slot.start_time + " - " + slot.end_time}}
                                     </mat-option>
                                 </mat-select>
@@ -113,19 +113,23 @@
                                     Slot is required
                                 </span>
                             </div>
-                        </div>
+                        </div> -->
 
-                        <div class="col-12">
-                            <div class="button-row mt-3">
-                                <button type="button"  mat-button class="mat-raised-button mat-accent mat-mini-fab"><i class="material-icons">
+                        <div class="col-2">
+                            <div class="">
+                               <button type="button"  mat-button class="mat-raised-button mat-primary mat-mini-fab margin-top" matTooltip="Manage Slots" [disabled]="slots.length == 0" (click)="openSlotDialog()"><i class="material-icons">
                                     visibility
-                                    </i></button>
+                                </i></button>
                             </div>
                         </div>
 
                         <div class="col-12">
+                             <span *ngIf="selectedSlot.start_time && selectedSlot.end_time"> Selected Slot :  {{selectedSlot.start_time + " - " + selectedSlot.end_time}} </span>   
+                        </div>
+
+                        <div class="col-12">
                             <div class="button-row mt-3">
-                                <button type="submit" [disabled]="!appointmentForm.valid" mat-button class="mat-raised-button mat-primary">Book Appointment</button>
+                                <button type="submit" [disabled]="!selectedSlot.start_time" mat-button class="mat-raised-button mat-primary" (click)="createAppointment()">Book Appointment</button>
                             </div>
                         </div>
 

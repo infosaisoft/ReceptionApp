@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common'
 
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatFormFieldModule, MatInputModule, MatDialogModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatDialogModule, MatTooltipModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -39,6 +39,7 @@ import { AppService } from './services/app.service';
 import { LogoutComponent } from './logout/logout.component';
 import { AuthGuard } from './guards/AuthGuard';
 import { AppConfig } from './app.config';
+import { SlotDialogComponent } from './slot-dialog/slot-dialog.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { AppConfig } from './app.config';
     ViewBillComponent,
     ConfirmDialogComponent,
     BillTariffsComponent,
-    LogoutComponent
+    LogoutComponent,
+    SlotDialogComponent,
     // AppGlobals,
     // AppConfig
   ],
@@ -80,7 +82,8 @@ import { AppConfig } from './app.config';
     MatAutocompleteModule,
     MatSelectModule,
     MatTableModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTooltipModule,
     // AppGlobals,
     // AppConfig
   ],
@@ -88,8 +91,8 @@ import { AppConfig } from './app.config';
   bootstrap: [AppComponent],
   entryComponents: [
     ConfirmDialogComponent,
-    BillTariffsComponent
-
+    BillTariffsComponent,
+    SlotDialogComponent
   ],
 })
 export class AppModule { }

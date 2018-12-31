@@ -3,6 +3,9 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { MatSnackBar, MatSidenav } from '@angular/material';
 import { AppointmentService } from '../services/appointment.service';
 import { AppUtility } from '../app.utility';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { SlotDialogComponent } from '../slot-dialog/slot-dialog.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-book-appointment',
@@ -17,36 +20,57 @@ export class BookAppointmentComponent implements OnInit {
 
   departmentList: any;
 
-  slots: any;
+  slots: any = [];
+
+  selectedSlot : any = {
+    start_time : null,
+    end_time : null,
+  }; 
 
   appointmentForm: FormGroup;
   mobnumPattern = "^((\\+91-?)|0)?[0-9]{10}$";
   hid: string = "hid1";
 
 
-  constructor(private formBuilder: FormBuilder, public snackbar: MatSnackBar, private utility: AppUtility, private appointmentService: AppointmentService, public snackBar: MatSnackBar) {
+  constructor(
+    private formBuilder: FormBuilder,
+    public snackbar: MatSnackBar,
+    private utility: AppUtility,
+    private appointmentService: AppointmentService,
+    public snackBar: MatSnackBar,
+    public dialog: MatDialog) {
     this.appointmentForm = this.formBuilder.group({
       'doctor': ['', Validators.required],
       'department': ['', Validators.required],
       'patient_name': ['', Validators.required],
       'room_name': [''],
       'contact': ['', Validators.compose([Validators.required, Validators.pattern(this.mobnumPattern)])],
-      'slot': ['', Validators.required],
+      'slot': [''],
       'hid': [this.hid],
       'date': ['', Validators.required],
     });
 
-
-
+    
 
     this.appointmentService.getDoctorList().subscribe(responsedata => {
       let data:any = responsedata;
       if (data.response.length == 0) {
         let snackBarRef = this.snackBar.open("Doctor list is empty.", "", { duration: 3000 });
       }
-      console.log(data.response);
       this.doctorList = data.response;
 
+    });
+  }
+
+  openSlotDialog(): void {
+    const dialogRef = this.dialog.open(SlotDialogComponent, {
+      width: '250px',
+      data: {slots: this.slots}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.selectedSlot = result;
+      console.log('The dialog was closed',result);
     });
   }
 
@@ -58,15 +82,15 @@ export class BookAppointmentComponent implements OnInit {
     this.sidenav.close();
   }
 
-  onSubmit() {
+  createAppointment() {
 
     let req: any = {
       "mobile": this.appointmentForm.controls["contact"].value,
       "patient_name": this.appointmentForm.controls["patient_name"].value,
-      "slot_id": this.appointmentForm.controls["slot"].value.id,
+      "slot_id": this.selectedSlot.id
     }
 
-
+    console.log(req);
     this.appointmentService.createAppointment(req)
       .subscribe((data: any) => {
         this.appointmentForm.reset();
@@ -127,18 +151,21 @@ export class BookAppointmentComponent implements OnInit {
     let criteria = {
       "department_id": this.appointmentForm.controls["department"].value.department.id,
       "doctor_id": this.appointmentForm.controls["doctor"].value.id,
-      "date": date1
+      "from_date": date1
     }
+
+    // let criteria = {
+    //   "department_id": 9, 
+    //   "doctor_id": 4,
+    //   "from_date": "2018-12-17"
+    // }
 
     this.appointmentService.getSlots(criteria).subscribe(responsedata => {
       let data:any = responsedata;
       if (data.response != null) {
         this.slots = data.response;
       }
-
     });
   }
-
-
 
 }
