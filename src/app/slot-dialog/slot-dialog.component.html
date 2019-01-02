@@ -5,6 +5,7 @@
       <mat-radio-group [(ngModel)]="slotSelected">
           <mat-radio-button [value]="slot" [disabled]="slot.status == 1"  *ngFor="let slot of slots; let i = index" (click)="onChangeslot(slot)">
             <a type="button"  mat-button class="mat-raised-button" [ngClass]="{'mat-success': slot.patient_enrolled == 0,'mat-yellow': slot.patient_enrolled < slot.max_patient_allowed,'mat-grey': slot.patient_enrolled != 0 && (slot.patient_enrolled == slot.max_patient_allowed)}">{{slot.start_time + " - " + slot.end_time}}</a>
+            {{slot.patient_enrolled + "/" + slot.max_patient_allowed}}
           </mat-radio-button>
       </mat-radio-group>
   </div>
