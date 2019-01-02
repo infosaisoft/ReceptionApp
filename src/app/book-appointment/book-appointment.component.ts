@@ -49,21 +49,20 @@ export class BookAppointmentComponent implements OnInit {
       'hid': [this.hid],
       'date': ['', Validators.required],
     });
-
     
-
-    var docReq : any ={
-      "hospital_id" : 1
-    }
-
-    this.appointmentService.getDoctorList(docReq).subscribe(responsedata => {
-      let data:any = responsedata;
-      if (data.response.length == 0) {
-        let snackBarRef = this.snackBar.open("Doctor list is empty.", "", { duration: 3000 });
+    let auth: any = localStorage.getItem("auth");
+    if(auth){
+      auth = JSON.parse(auth);
+      if(auth.hasOwnProperty('hospital')){
+        var docReq : any ={
+          "hospital_id" : auth.hospital.id
+        }
+        this.appointmentService.getDoctorList(docReq).subscribe(responsedata => {
+          let data: any = responsedata;
+          this.doctorList = data.response;    
+        });
       }
-      this.doctorList = data.response;
-
-    });
+    }
   }
 
   openSlotDialog(): void {

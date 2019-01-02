@@ -35,14 +35,22 @@ export class ManageAppointmentsComponent implements OnInit {
       'doctor': ["", Validators.required],
     });
 
-
-    this.appointmentService.getDoctorList().subscribe(responsedata => {
-      let data: any = responsedata;
-      this.doctorList = data.response;
-
-    });
+    let auth: any = localStorage.getItem("auth");
+    if(auth){
+      auth = JSON.parse(auth);
+      if(auth.hasOwnProperty('hospital')){
+        var docReq : any ={
+          "hospital_id" : auth.hospital.id
+        }
+        this.appointmentService.getDoctorList(docReq).subscribe(responsedata => {
+          let data: any = responsedata;
+          this.doctorList = data.response;    
+        });
+      }
+    }
   }
 
+  
   ngOnInit() {
     this.date = new Date();
     let latest_date = this.datepipe.transform(this.date, 'yyyy-MM-dd');
