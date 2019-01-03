@@ -72,8 +72,10 @@ export class BookAppointmentComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.selectedSlot = result;
-      console.log('The dialog was closed',result);
+      if(result){
+        this.selectedSlot = result;
+        console.log('The dialog was closed',result);
+      }
     });
   }
 
