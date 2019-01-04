@@ -44,8 +44,10 @@ export class AcceptBillComponent implements OnInit {
           let data: any = responsedata;
           this.appointment = data.response;
 
-          this.billingForm.controls["patient_name"].setValue(this.appointment.patient.name);
-          this.billingForm.controls["patient_contact"].setValue(this.appointment.patient.contact);
+
+
+          this.billingForm.controls["patient_name"].setValue(this.appointment.patient.profile.name);
+          this.billingForm.controls["patient_contact"].setValue(this.appointment.patient.profile.mobile);
 
           //fetching tariff rates.
           this.appointmentService.getTariffRatesByAppointment(this.appointment.id).subscribe(responsedata => {
@@ -79,7 +81,7 @@ export class AcceptBillComponent implements OnInit {
   prepareTariffData(tariffRates: any) {
 
     tariffRates.forEach(element => {
-      let obj = { tariff_rate_id: element.id, tariff_name: element.tariff.name, service_name: element.service_name, service_category: element.service_category, rate: element.rate };
+      let obj = { tariff_rate_id: element.id, tariff_name: element.name, service_name: element.service_name, service_category: element.service_category, rate: element.rate };
       if (element.is_mandatory) {
         this.applyTariff(obj);
       } else {
@@ -97,7 +99,7 @@ export class AcceptBillComponent implements OnInit {
   applyMandatoryTariffs(tariffRates: any) {
     tariffRates.forEach(element => {
       if (element.is_mandatory) {
-        let obj = { tariff_name: element.tariff.name, service_name: element.service_name, service_category: element.service_category, rate: element.rate };
+        let obj = { tariff_name: element.name, service_name: element.service_name, service_category: element.service_category, rate: element.rate };
         this.appliedTariffs.push(obj);
 
 

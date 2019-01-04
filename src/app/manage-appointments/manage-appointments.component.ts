@@ -28,6 +28,7 @@ export class ManageAppointmentsComponent implements OnInit {
   latest_date: Date;
   latest_date1: string;
   doctorList: any;
+  currentUser:any;
 
   constructor(private formBuilder: FormBuilder, private router: Router, public dialog: MatDialog, private appointmentService: AppointmentService, private utility: AppUtility, public snackbar: MatSnackBar, public datepipe: DatePipe) {
     this.searchAppointmentForm = this.formBuilder.group({
@@ -37,15 +38,18 @@ export class ManageAppointmentsComponent implements OnInit {
 
     let auth: any = localStorage.getItem("auth");
     if(auth){
-      auth = JSON.parse(auth);
-      if(auth.hasOwnProperty('hospital')){
+      this.currentUser= JSON.parse(auth);
+
+      if(this.currentUser.hasOwnProperty('hospital')){
         var docReq : any ={
-          "hospital_id" : auth.hospital.id
+          "hospital_id" : this.currentUser.hospital.id
         }
         this.appointmentService.getDoctorList(docReq).subscribe(responsedata => {
           let data: any = responsedata;
           this.doctorList = data.response;    
         });
+
+        this.getAppointentList({"hospital_id" : this.currentUser.hospital.id});
       }
     }
   }
@@ -76,6 +80,10 @@ export class ManageAppointmentsComponent implements OnInit {
       "doctor_id": this.searchAppointmentForm.controls["doctor"].value.id
     }
 
+    this.getAppointentList(req);
+  }
+
+  getAppointentList(req:any){
     this.appointmentService.searchAppointment(req)
       .subscribe((data: any) => {
         this.results = data.response;
