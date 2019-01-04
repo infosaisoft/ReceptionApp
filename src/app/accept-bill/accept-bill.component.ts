@@ -32,6 +32,7 @@ export class AcceptBillComponent implements OnInit {
   sub_bill: Array<SubBillData>;
 
   modes: String[] = ['Cash', 'Cheque', 'Online'];
+  paymentStatuses:any = [{"key":1, "value":"Pending"},{"key":2, "value":"Paid"}];
 
   appliedTariffs: any = [];
 
@@ -44,8 +45,10 @@ export class AcceptBillComponent implements OnInit {
           let data: any = responsedata;
           this.appointment = data.response;
 
-          this.billingForm.controls["patient_name"].setValue(this.appointment.patient.name);
-          this.billingForm.controls["patient_contact"].setValue(this.appointment.patient.contact);
+
+
+          this.billingForm.controls["patient_name"].setValue(this.appointment.patient.profile.name);
+          this.billingForm.controls["patient_contact"].setValue(this.appointment.patient.profile.mobile);
 
           //fetching tariff rates.
           this.appointmentService.getTariffRatesByAppointment(this.appointment.id).subscribe(responsedata => {
@@ -70,6 +73,7 @@ export class AcceptBillComponent implements OnInit {
       'amount_paid': [''],
       'balance_amt': [''],
       'payment_mode': [''],
+      'status': ['',Validators.required],
     });
 
 
@@ -79,7 +83,7 @@ export class AcceptBillComponent implements OnInit {
   prepareTariffData(tariffRates: any) {
 
     tariffRates.forEach(element => {
-      let obj = { tariff_rate_id: element.id, tariff_name: element.tariff.name, service_name: element.service_name, service_category: element.service_category, rate: element.rate };
+      let obj = { tariff_rate_id: element.id, tariff_name: element.name, service_name: element.service_name, service_category: element.service_category, rate: element.rate };
       if (element.is_mandatory) {
         this.applyTariff(obj);
       } else {
@@ -97,7 +101,7 @@ export class AcceptBillComponent implements OnInit {
   applyMandatoryTariffs(tariffRates: any) {
     tariffRates.forEach(element => {
       if (element.is_mandatory) {
-        let obj = { tariff_name: element.tariff.name, service_name: element.service_name, service_category: element.service_category, rate: element.rate };
+        let obj = { tariff_name: element.name, service_name: element.service_name, service_category: element.service_category, rate: element.rate };
         this.appliedTariffs.push(obj);
 
 
@@ -159,6 +163,7 @@ export class AcceptBillComponent implements OnInit {
       "net_amount": this.billingForm.controls["net_amount"].value,
       "paid_amount": this.billingForm.controls["amount_paid"].value,
       "payment_mode": this.billingForm.controls["payment_mode"].value,
+      "status": this.billingForm.controls["status"].value,
       "bill_tariffs": []
     }
 
