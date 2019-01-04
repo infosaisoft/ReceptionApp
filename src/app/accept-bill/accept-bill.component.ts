@@ -32,6 +32,7 @@ export class AcceptBillComponent implements OnInit {
   sub_bill: Array<SubBillData>;
 
   modes: String[] = ['Cash', 'Cheque', 'Online'];
+  paymentStatuses:any = [{"key":1, "value":"Pending"},{"key":2, "value":"Paid"}];
 
   appliedTariffs: any = [];
 
@@ -72,6 +73,7 @@ export class AcceptBillComponent implements OnInit {
       'amount_paid': [''],
       'balance_amt': [''],
       'payment_mode': [''],
+      'status': ['',Validators.required],
     });
 
 
@@ -161,6 +163,7 @@ export class AcceptBillComponent implements OnInit {
       "net_amount": this.billingForm.controls["net_amount"].value,
       "paid_amount": this.billingForm.controls["amount_paid"].value,
       "payment_mode": this.billingForm.controls["payment_mode"].value,
+      "status": this.billingForm.controls["status"].value,
       "bill_tariffs": []
     }
 

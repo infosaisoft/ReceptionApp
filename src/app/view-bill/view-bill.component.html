@@ -31,8 +31,8 @@
                             <th>Name</th>
                             <th>Contact</th>
                             <th>Net Amount</th>
-                            <th>Amount Paid</th>
-                            <th>Bal Amount</th>
+                            <!-- <th>Amount Paid</th>
+                            <th>Bal Amount</th> -->
                             <th>Date</th>
                             <th>Action</th>
                         </tr>
@@ -42,11 +42,11 @@
                             <td>{{ i+1 }}</td>
                             <td>{{ result.id }}</td>
                             <td>{{ result.hasOwnProperty("appointment")  && result.appointment ? result.appointment.id : "" }}</td>
-                            <td>{{ result.hasOwnProperty("appointment") && result.appointment ? result.appointment.patient.name:"" }}</td>
-                            <td>{{ result.hasOwnProperty("appointment") && result.appointment ? result.appointment.patient.contact:"" }}</td>
+                            <td>{{ result.hasOwnProperty("appointment") && result.appointment ? result.appointment.patient.profile.name:"" }}</td>
+                            <td>{{ result.hasOwnProperty("appointment") && result.appointment ? result.appointment.patient.profile.mobile:"" }}</td>
                             <td>{{ result.net_amount }}</td>
-                            <td>{{ result.paid_amount }}</td>
-                            <td>{{ result.net_amount - result.paid_amount }}</td>
+                            <!-- <td>{{ result.paid_amount }}</td>
+                            <td>{{ result.net_amount - result.paid_amount }}</td> -->
                             <td>{{ result.updated }}</td>
                             <td>
                                 <a class="btn btn-info btn-sm btn-a" routerLink="bill-details?bid={{ result.bill_id }}">
