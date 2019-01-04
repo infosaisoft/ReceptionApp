@@ -57,6 +57,11 @@ export class ManageAppointmentsComponent implements OnInit {
     this.newdate = latest_date.toString();
     console.log(this.newdate);
     //this.getApps(this.hid, this.newdate);
+    let req: any = {
+      "date": null,
+      "doctor_id": null
+    }
+    this.searchAppointment(req);
   }
 
   onChange($event) {
@@ -75,13 +80,16 @@ export class ManageAppointmentsComponent implements OnInit {
       "date": date1,
       "doctor_id": this.searchAppointmentForm.controls["doctor"].value.id
     }
+    this.searchAppointment(req);
+  }
 
+  searchAppointment(req :any){
     this.appointmentService.searchAppointment(req)
       .subscribe((data: any) => {
         this.results = data.response;
       }, error => {
 
-        console.log(error);
+        console.log(error.error.error);
       });
   }
 
