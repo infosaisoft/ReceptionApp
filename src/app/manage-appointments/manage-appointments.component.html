@@ -32,7 +32,7 @@
 
                     </div>
 
-                    <div class="mb-2">
+                    <div class="col-12">
                         <span>
                             <mat-form-field class="example-full-width">
                                 <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Choose a date">
@@ -76,6 +76,9 @@
                                     <a class="btn btn-primary" [routerLink]="['/accept-bill']" [queryParams]="{appointment_id: result.id}" >Payment</a>
 
                                 </td>
+                            </tr>
+                            <tr>
+                                <td colspan="6" class="text-center" *ngIf="results && results.length == 0">Data not found</td>
                             </tr>
                         </tbody>
                     </table>

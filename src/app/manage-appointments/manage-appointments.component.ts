@@ -79,7 +79,6 @@ export class ManageAppointmentsComponent implements OnInit {
       "date": date1,
       "doctor_id": this.searchAppointmentForm.controls["doctor"].value.id
     }
-
     this.getAppointentList(req);
   }
 
@@ -89,7 +88,7 @@ export class ManageAppointmentsComponent implements OnInit {
         this.results = data.response;
       }, error => {
 
-        console.log(error);
+        console.log(error.error.error);
       });
   }
 
