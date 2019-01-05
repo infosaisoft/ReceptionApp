@@ -128,10 +128,7 @@ export class BookAppointmentComponent implements OnInit {
         this.appointmentForm.markAsPristine();
         this.appointmentForm.markAsUntouched();
         this.appointmentForm.updateValueAndValidity();
-
-        console.log(JSON.stringify(data));
-        console.log("Appointment Booked Successfully");
-        this.snackbar.open("Appointment Booked Successfully", "", {
+        this.snackbar.open(data.message, "", {
           duration: 4000,
         });
       }, error => {

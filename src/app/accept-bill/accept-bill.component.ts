@@ -32,9 +32,11 @@ export class AcceptBillComponent implements OnInit {
   sub_bill: Array<SubBillData>;
 
   modes: String[] = ['Cash', 'Cheque', 'Online'];
-  paymentStatuses:any = [{"key":1, "value":"Pending"},{"key":2, "value":"Paid"}];
+  paymentStatuses: any = [{ "key": 1, "value": "Pending" }, { "key": 2, "value": "Paid" }];
 
   appliedTariffs: any = [];
+  billData: any;
+  isUpdate: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute, public dialog: MatDialog, private billService: BillService, private appointmentService: AppointmentService, private snackbar: MatSnackBar) {
 
@@ -58,22 +60,41 @@ export class AcceptBillComponent implements OnInit {
           });
 
         });
-
-
-
       }
+
+      if (params.billId) {
+        this.billService.getBillById(params.billId).subscribe(responsedata => {
+          let data: any = responsedata;
+          this.billData = data.response;
+          this.prefillData(this.billData);
+          this.isUpdate = true;
+
+
+          // this.billingForm.controls["patient_name"].setValue(this.appointment.patient.profile.name);
+          // this.billingForm.controls["patient_contact"].setValue(this.appointment.patient.profile.mobile);
+
+          // //fetching tariff rates.
+          // this.appointmentService.getTariffRatesByAppointment(this.appointment.id).subscribe(responsedata => {
+          //   let data: any = responsedata;
+          //   this.prepareTariffData(data.response);
+          //   //this.tariffRates = data.response;
+          // });
+
+        });
+      }
+
     });
 
     this.billingForm = this.formBuilder.group({
-      'patient_name': ['', Validators.required],
-      'patient_contact': ['', Validators.compose([Validators.required, Validators.pattern(this.mobnumPattern)])],
+      'patient_name': [''],
+      'patient_contact': [''],
       'add_charge': [''],
       'discount': [''],
       'net_amount': ['', Validators.required],
       'amount_paid': [''],
       'balance_amt': [''],
       'payment_mode': [''],
-      'status': ['',Validators.required],
+      'status': ['', Validators.required],
     });
 
 
@@ -84,7 +105,9 @@ export class AcceptBillComponent implements OnInit {
 
     tariffRates.forEach(element => {
       let obj = { tariff_rate_id: element.id, tariff_name: element.name, service_name: element.service_name, service_category: element.service_category, rate: element.rate };
-      if (element.is_mandatory) {
+      //we cannot apply mandatory tariffs manually as they get applied automatically at the time of creation.
+      //At the time of updation we simply ignore the mandatory tariffs as it is assumed that they are already applied at the time of creation.
+      if (element.is_mandatory && !this.isUpdate) {
         this.applyTariff(obj);
       } else {
         this.tariffRates.push(obj);
@@ -115,6 +138,36 @@ export class AcceptBillComponent implements OnInit {
         startWith(''),
         map(value => this._filter(value))
       );
+  }
+
+
+  prefillData(data: any) {
+    //fetching tariff rates.
+    this.appointmentService.getTariffRatesByAppointment(data.appointment.id).subscribe(responsedata => {
+      let data: any = responsedata;
+      this.prepareTariffData(data.response);
+      //this.tariffRates = data.response;
+    });
+
+    data.bill_tariffs.forEach(element => {
+      let obj = { tariff_name: element.tariff_rate.name, service_name: element.tariff_rate.service_name, service_category: element.tariff_rate.service_category, rate: element.amount };
+      this.appliedTariffs.push(obj);
+    });
+
+
+    let balanceAmt = data.net_amount - data.paid_amount;
+    this.billingForm.patchValue({
+      'patient_name': data.appointment.patient.profile.name,
+      'patient_contact': data.appointment.patient.profile.mobile,
+      'add_charge': data.additional_charges,
+      // 'room_name': appointmentData.slot.doc_dept_assoc.room_name,
+      'discount': data.discount_amount,
+      'net_amount': data.net_amount,
+      'amount_paid': data.paid_amount,
+      'balance_amt': balanceAmt,
+      'payment_mode': data.payment_mode,
+      "status": data.status,
+    });
   }
 
   calculateNetAmount() {
@@ -157,7 +210,7 @@ export class AcceptBillComponent implements OnInit {
   onSubmit() {
 
     let req = {
-      "appointment_id": this.appointment.id,
+      "appointment_id": null,
       "additional_charges": this.billingForm.controls["add_charge"].value,
       "discount_amount": this.billingForm.controls["discount"].value,
       "net_amount": this.billingForm.controls["net_amount"].value,
@@ -167,18 +220,31 @@ export class AcceptBillComponent implements OnInit {
       "bill_tariffs": []
     }
 
+    if (this.isUpdate) {
+      req["id"] = this.billData.id;
+    } else {
+      req["appointment_id"] = this.appointment.id
+    }
+
     this.appliedTariffs.forEach(element => {
       req.bill_tariffs.push({ amount: element.rate, tariff_rate_id: element.tariff_rate_id, remark: '' });
     });
 
+    console.log(JSON.stringify(req));
 
-    this.billService.createBill(req)
+    let refService: any = this.billService.createBill(req);
+
+    if (this.isUpdate) {
+      refService = this.billService.updateBill(req);
+    }
+
+    refService
       .subscribe((data: any) => {
 
-        this.router.navigate(['view-bill']);
-        this.snackbar.open("Bill Generated Successfully", "", {
+        this.snackbar.open(data.message, "", {
           duration: 4000,
         });
+        this.router.navigate(['view-bill']);
       }, error => {
         this.snackbar.open("Bill Generation Failed", "", {
           duration: 4000,

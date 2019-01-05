@@ -34,6 +34,7 @@
                             <!-- <th>Amount Paid</th>
                             <th>Bal Amount</th> -->
                             <th>Date</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -48,11 +49,15 @@
                             <!-- <td>{{ result.paid_amount }}</td>
                             <td>{{ result.net_amount - result.paid_amount }}</td> -->
                             <td>{{ result.updated }}</td>
+                            <td>{{ getStatusTitleById (result.status) }}</td>
                             <td>
-                                <a class="btn btn-info btn-sm btn-a" routerLink="bill-details?bid={{ result.bill_id }}">
+                                <!-- <a class="btn btn-info btn-sm btn-a" routerLink="bill-details?bid={{ result.bill_id }}">
                                     <i class="material-icons" style="font-size: 16px;">view_list</i>
-                                </a>
-                                <a class="btn btn-primary btn-sm btn-a" routerLink="edit-bill?bid={{ result.bill_id }}">
+                                </a> -->
+                                <!-- <a class="btn btn-primary btn-sm btn-a" routerLink="['/accept-bill']" [queryParams]="{billId: result.bill_id}" >
+                                    <i class="material-icons" style="font-size: 16px;">edit</i>
+                                </a> -->
+                                <a class="btn btn-primary btn-sm btn-a" [routerLink]="['/accept-bill']" [queryParams]="{billId: result.id}" >
                                     <i class="material-icons" style="font-size: 16px;">edit</i>
                                 </a>
                             </td>

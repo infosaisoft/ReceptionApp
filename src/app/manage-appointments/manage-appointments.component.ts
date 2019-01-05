@@ -103,10 +103,11 @@ export class ManageAppointmentsComponent implements OnInit {
       if (result) {
         let req = { id: appointment.id, status: 2 }
         //this.helpers.loading("submit-video-activity");
-        this.appointmentService.updateAppointment(req).subscribe(data => {
+        this.appointmentService.updateAppointmentStatus(req).subscribe(data => {
           //this.helpers.unloading("submit-video-activity");
           this.onSubmit();
           let snackBarRef = this.snackbar.open("Appointment has been closed successfully! ", "", { duration: 3000 });
+          this.getAppointentList({"hospital_id" : this.currentUser.hospital.id});
 
         })
       }

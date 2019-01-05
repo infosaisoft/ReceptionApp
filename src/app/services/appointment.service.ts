@@ -46,6 +46,10 @@ export class AppointmentService {
     return this.http.post<ApiResponse>(this.appConfig.API_BASE_URL + "/api/appointment/update", req, this.httpOptions)
   }
 
+  updateAppointmentStatus(req: any) {
+    return this.http.post<ApiResponse>(this.appConfig.API_BASE_URL + "/api/appointment/status", req, this.httpOptions)
+  }
+
   searchAppointment(req: any) {
     return this.http.post<ApiResponse>(this.appConfig.API_BASE_URL + "/api/appointment/search", req, this.httpOptions)
   }

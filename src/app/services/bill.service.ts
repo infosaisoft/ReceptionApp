@@ -18,8 +18,16 @@ export class BillService {
     this.httpOptions = { headers: new HttpHeaders(headers) };
   }
 
+  getBillById(billId: number) {
+    return this.http.get<ApiResponse>(this.appConfig.API_BASE_URL + "/api/bill/" + billId, this.httpOptions)
+  }
+
   createBill(req: any) {
     return this.http.post<ApiResponse>(this.appConfig.API_BASE_URL + "/api/bill/create", req, this.httpOptions)
+  }
+
+  updateBill(req: any) {
+    return this.http.post<ApiResponse>(this.appConfig.API_BASE_URL + "/api/bill/update", req, this.httpOptions)
   }
 
   getBills(criteria: any) {

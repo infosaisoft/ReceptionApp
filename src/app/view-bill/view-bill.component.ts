@@ -50,4 +50,14 @@ export class ViewBillComponent implements OnInit {
     this.sidenav.close();
   }
 
+  getStatusTitleById(id: number) {
+    switch (id) {
+      case 1:
+        return "Pending";
+
+      case 2:
+        return "Paid";
+    }
+  }
+
 }

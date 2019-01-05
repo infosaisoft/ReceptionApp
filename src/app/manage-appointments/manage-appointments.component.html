@@ -56,7 +56,6 @@
                                 <th>doctor</th>
                                 <th>Patient</th>
                                 <th>Duration</th>
-                                <th></th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -66,14 +65,13 @@
                                 <td>{{ result.slot.doc_dept_assoc.doctor.profile.name }}</td>
                                 <td>{{ result.patient.profile.name }}</td>
                                 <td>{{ result.slot.start_time + "-"+ result.slot.end_time }}</td>
-                                <td>
-                                    <button class="btn btn-primary" (click)="closeAppointment(result)"
-                                        [disabled]="result.status == 2">Close</button>
-                                </td>
+                                
                                 <td>
 
                                     <a class="btn btn-primary mb-1"  [routerLink]="['/book-appointment']" [queryParams]="{appointmentId: result.id}" >Edit</a>
-                                    <a class="btn btn-primary" [routerLink]="['/accept-bill']" [queryParams]="{appointment_id: result.id}" >Payment</a>
+                                    <a class="btn btn-primary mb-1" [routerLink]="['/accept-bill']" [queryParams]="{appointment_id: result.id}" >Payment</a>
+                                    <button class="btn btn-primary mb-1" (click)="closeAppointment(result)"
+                                    [disabled]="result.status == 2">Close</button>
 
                                 </td>
                             </tr>
