@@ -71,14 +71,10 @@
                                         [disabled]="result.status == 2">Close</button>
                                 </td>
                                 <td>
-                                    <mat-menu class="appntMenu" #editAppnt="matMenu" [overlapTrigger]="false">
-                                        <button mat-menu-item (click)="goToPaymentPage(result)">Make Payment</button>
 
-                                    </mat-menu>
+                                    <a class="btn btn-primary mb-1"  [routerLink]="['/book-appointment']" [queryParams]="{appointmentId: result.id}" >Edit</a>
+                                    <a class="btn btn-primary" [routerLink]="['/accept-bill']" [queryParams]="{appointment_id: result.id}" >Payment</a>
 
-                                    <button class="editAppntBtn" mat-icon-button [matMenuTriggerFor]="editAppnt">
-                                        <i class="material-icons">more_vert</i>
-                                    </button>
                                 </td>
                             </tr>
                         </tbody>
