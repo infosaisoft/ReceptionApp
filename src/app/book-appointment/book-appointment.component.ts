@@ -181,7 +181,7 @@ export class BookAppointmentComponent implements OnInit {
     this.appointmentService.getPatientByMobile(contact).subscribe(responsedata => {
       let data: any = responsedata;
       if (data.response != null) {
-        this.appointmentForm.controls["patient_name"].setValue(data.response.name);
+        this.appointmentForm.controls["patient_name"].setValue(data.response.profile.name);
       }
 
     });

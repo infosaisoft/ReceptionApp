@@ -10,7 +10,6 @@ import { AcceptBillComponent } from './accept-bill/accept-bill.component';
 import { ViewBillComponent } from './view-bill/view-bill.component';
 import { LogoutComponent } from './logout/logout.component';
 import { AuthGuard } from './guards/AuthGuard';
-import { UploaderComponent } from './uploader/uploader.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent ,canActivate: [AuthGuard]},

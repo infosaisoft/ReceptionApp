@@ -8,13 +8,13 @@ export class AppService {
   private httpOptions: any = null;
 
   constructor(private http: HttpClient, private appConfig:AppConfig) {
-    let headers: any = { "device-id":1};
+    let headers: any = { "device-id":5};
     //this.httpOptions = { headers: new HttpHeaders(headers) };
 
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'device-id': "1" 
+        'device-id': "5" 
       })
     };
   }
